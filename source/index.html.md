@@ -2,14 +2,12 @@
 title: API Reference
 
 language_tabs: # must be one of https://git.io/vQNgJ
-  - shell
-  - ruby
-  - python
-  - javascript
+  - shell: cURL
 
+  - java: Java
+  
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
-  - <a href='https://github.com/lord/slate'>Documentation Powered by Slate</a>
+   - <a href='https://device.pcloudy.com/signup' target="_blank">Sign Up for API Key</a>
 
 includes:
   - errors
@@ -19,221 +17,462 @@ search: true
 
 # Introduction
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
-
-We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
-
-This example API documentation page was created with [Slate](https://github.com/lord/slate). Feel free to edit it and use it as a base for your own API's documentation.
+The pCloudy API is organized around REST. Our API has predictable, resource-oriented URLs, and uses HTTP response codes to indicate API errors. We use built-in HTTP features, like HTTP authentication and HTTP verbs, which are understood by off-the-shelf HTTP clients.
 
 # Authentication
 
-> To authorize, use this code:
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-```
+> URL format:
 
 ```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
+curl -u "email:apiKey" <Cloud URL>/api/access
+
+Note: 
+	<Cloud URL>: Use https://device.pcloudy.com or https://us.pcloudy.com or https://ph.pcloudy.com or https://aus.pcloudy.com in case of public cloud otherwise use your custom cloud URL in case of private or on premise cloud
+
+Ex: curl -u "test.user@pcloudy.com:3m4t8y47mmrz8zycmqbr3f" https://device.pcloudy.com/api/access
+
+
+Make sure to replace `test.user@pcloudy.com:3m4t8y47mmrz8zycmqbr3f` with your Email and API key.
+
+```
+ 
+
+```java
+Connector con = new Connector("https://device.pcloudy.com");
+String authToken = con.authenticateUser(emailid, apiKey);
 ```
 
-```javascript
-const kittn = require('kittn');
 
-let api = kittn.authorize('meowmeowmeow');
-```
 
-> Make sure to replace `meowmeowmeow` with your API key.
+Authenticate your account when using the API by including your email-Id and secret API key(access Key) in the request. You can manage your API keys in the Account settings. Your API keys carry many privileges, so be sure to keep them secret! Do not share your secret API keys in publicly accessible areas such GitHub, client-side code, and so forth.
+	Authentication to the API is performed via HTTP Basic Auth. Provide your API key as the basic auth username value. You do not need to provide a password.
 
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
+	All API requests must be made over HTTPS. Calls made over plain HTTP will fail. API requests without authentication will also fail.
 
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
+###
+Parameter |  Description
+--------- |  -----------
+email | your email id
+accessKey | your access key(you will get it from account settings->API
 
-`Authorization: meowmeowmeow`
 
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
 
-# Kittens
+# Generic 
 
-## Get All Kittens
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
+## Get User Details
 
 ```shell
-curl "http://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
+URL format:
+  
+curl -H "Content-Type: application/json" -d '{"token": "authToken"}' <Cloud URL>/api/get_user_details
+                                        		          
+Ex: 
+curl -H “Content-Type:application/json” -d ‘{“token”:”swqkm7f55v39g9kkdggkzs”}’ https://device.pcloudy.com/api/get_user_details
 ```
 
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
+```java
+UserDetailResult userDetail = con.getUserDetails(authToken);
 ```
 
-> The above command returns JSON structured like this:
+You can get the total account details like userId, email_id, username, account balance, etc., by passing the authtoken(this will get when authentication response).
 
-```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
-  }
-]
-```
-
-This endpoint retrieves all kittens.
-
-### HTTP Request
-
-`GET http://example.com/api/kittens`
 
 ### Query Parameters
 
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
+Parameter |  Description
+--------- |  -----------
+authToken | Authtoken(this will get from authenticate response)
 
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
 
-## Get a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
+## Upload App
 
 ```shell
-curl "http://example.com/api/kittens/2"
-  -H "Authorization: meowmeowmeow"
+URL format:
+	curl -X POST -F "file=@/File_Path" -F "source_type=raw" -F "token=authToken" -F "filter=filter" <Cloud URL>/api/upload_file
+Ex:
+	curl -X POST -F "file=@/home/pratap/Downloads/pCloudy_Appium_Demo.apk" -F "source_type=raw" -F "token=swqkm7f55v39g9kkdggkzs" -F "filter=all" https://device.pcloudy.com/api/upload_file
 ```
 
-```javascript
-const kittn = require('kittn');
+```java
+PDriveFileDTO uploadedApp = con.uploadApp(authToken, fileToUpload);
 
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
 ```
 
-> The above command returns JSON structured like this:
 
-```json
-{
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
-}
-```
+You can upload the apps to pcloudy cloud drive by using upload api. You can upload any file to cloud drive. Uploaded files/apps are available in MY App/Data section.
 
-This endpoint retrieves a specific kitten.
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-
-### HTTP Request
-
-`GET http://example.com/kittens/<ID>`
 
 ### URL Parameters
 
 Parameter | Description
 --------- | -----------
-ID | The ID of the kitten to retrieve
+file | Path of uploaded apk or ipa file
+source_type | Mention raw type(raw)
+token | Authtoken(this will get from authenticate response)
+filter | You can filter the file like apk or ipa when uploading(all/apk/ipa)
 
-## Delete a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.delete(2)
-```
+## Get Available Apps
 
 ```shell
-curl "http://example.com/api/kittens/2"
-  -X DELETE
-  -H "Authorization: meowmeowmeow"
+URL Format:
+	curl -H "Content-Type:application/json" -d '{"token":"authToken","limit": limit, "filter": "all"}' <Cloud URL>/api/drive
+Ex:
+	curl -H "Content-Type:application/json" -d '{"token":"swqkm7f55v39g9kkdggkzs","limit": 5, "filter": "all"}' https://device.pcloudy.com/api/drive
 ```
 
-```javascript
-const kittn = require('kittn');
+```java
 
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.delete(2);
+PDriveFileDTO[] apps = con.getAvailableApps(String authToken);
 ```
 
-> The above command returns JSON structured like this:
 
-```json
-{
-  "id": 2,
-  "deleted" : ":("
-}
-```
+Get Available app will show you total files and apps what ever you uploaded in cloud drive.
 
-This endpoint deletes a specific kitten.
-
-### HTTP Request
-
-`DELETE http://example.com/kittens/<ID>`
 
 ### URL Parameters
 
 Parameter | Description
 --------- | -----------
-ID | The ID of the kitten to delete
+token | Authtoken(this will get from authenticate response)
+limit	  | How many files you want to display.
+filter    | It will filter the files and display based on filter option(all/apk/ipa).
 
+## Download File From Cloud
+```shell
+URL Format:
+
+curl -O -H "Content-Type:application/json" -d '{"token":"TOKEN","filename":"FileName","dir":"data"}' <Cloud URL>/api/download_file
+
+
+Ex:
+	 curl -O -H "Content-Type:application/json" -d '{"token":"swqkm7f55v39g9kkdggkzs","filename":"pCloudy_Appium_Demo.apk","dir":"data"}' https://device.pcloudy.com/api/download_file
+```
+
+```java
+File file= con.downloadFileFromCloud(authToken, "pCloudy_Appium_Demo.apk", "data");
+```
+You can download files from cloud drive. This will download the apps into your system.
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+token | Authtoken(this will get from authenticate response)
+filename  | File name which you want to download
+dir       | Directory name(data).
+
+## Get Device List
+```shell
+URL Format:
+
+curl -H "Content-Type: application/json" -d '{ "token":"authToken","duration":10, "platform":"platform", "available_now":"true"}' <Cloud URL>/api/device
+
+Ex:
+curl -H "Content-Type: application/json" -d '{ "token":"swqkm7f55v39g9kkdggkzs","duration":10, "platform":"android", "available_now":"true"}' https://device.pcloudy.com/api/devices
+```
+
+```java
+For single device selection:
+MobileDevice selectedDevice = con.chooseSingleDevice(authToken, "Android");
+
+For Multiple device selection:
+
+  List<MobileDevice>   selectedDevices = con.chooseMultipleDevices(authToken, "android");
+```
+This api helps to get the available devices in pcloudy with total information about the each device. In the response each device is having the id which is used for booking the device.
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+token | Authtoken(this will get from authenticate response)
+duration  | Duration in minutes(How many minutes you want to the device).
+platform  | Which platform devices(android or ios) you want to display.
+available_now | true or false. True means display the available devices and false means display all devices(including busy and available).
+
+## Book Device
+```shell
+URL Format:
+	curl -H 'ContentType:application/json' -d '{"token":"authToken","duration":minutes, "id":device_id}' <Cloud URL>/api/book_device
+
+EX: curl -H 'ContentType:application/json' -d '{"token":"swqkm7f55v39g9kkdggkzs","duration":5, "id":120}' https://device.pcloudy.com/api/book_device
+```
+
+```java
+BookingDtoResult bookedDevice = con.bookDevice(authToken, 10, selectedDevice);
+```
+Book Device api book the device for your testing. For device booking you had to pass the authToken, how many minutes you want book and device id. Every device having the different id.
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+token | Authtoken(this will get from authenticate response)
+duration  | Duration in minutes(How many minutes you want to the device).
+id  | How many minutes you want to book the device.
+
+## Get Device Page URL
+```shell
+URL Format:
+curl -H "Content-Type: application/json" -d '{"token": "authToken","rid":"rid"}' <Cloud URL>/api/get_device_url
+
+Ex: 
+	
+curl -H "Content-Type: application/json" -d '{"token": "swqkm7f55v39g9kkdggkzs","rid":"482013"}' https://device.pcloudy.com/api/get_device_url
+```
+
+```java
+URL devicePageURL = con.getDevicePageUrl(authToken, bookedDevice);
+```
+This will give you the device page url. By this url you can open the device screen directly in the browser. This helps you to connect to the device directly by passing the authToken and rid.
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+token | Authtoken(this will get from authenticate response)
+rid | Reservation id(will get from book device api response).
+
+## Install and Launch app
+```shell
+URL format:
+curl -H "Content-Type: application/json" -d '{"token": "authToken", "rid": "rid", "filename": "filename", "grant_all_permissions":"true/false"}' <Cloud URL>/api/install_app
+
+Ex:
+	
+curl -H "Content-Type: application/json" -d '{"token": "swqkm7f55v39g9kkdggkzs", "rid": "482013", "filename": "pCloudy_Appium_Demo.apk", "grant_all_permissions":"true"}' https://device.pcloudy.com/api/install_app
+```
+```java
+InstallAndLaunchResultDto result = con.installAndLaunchApp(authToken, bookedDevice, uploadedApp);
+```
+Install and launch api will install the app(apk/ipa) in the device and launch it on the device. App launch will work on Android devices, but in iOS device app will install but not launch(we are working on this).
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+token | Authtoken(this will get from authenticate response)
+rid | Reservation id(will get from book device api response)
+filename | app name(Need to mention apk/ipa file name which is available in cloud drive)
+grant_all_permissions | true/false(This is provide permissions for app). This is optional.
+
+## Execute ADB
+```shell
+URL format:
+curl -H "Content-Type: application/json" -d '{"token": "authToken", "rid": "rid", "adbCommand": "adb Command"}' <Cloud URL>/api/execute_adb	
+
+Ex:
+	curl -H "Content-Type: application/json" -d '{"token": "swqkm7f55v39g9kkdggkzs", "rid": "482013", "adbCommand": "adb shell getprop | grep model"}' https://device.pcloudy.com/api/execute_adb
+```
+```java
+String adbdevices =con.executeAdbCommand(authToken, bookedDevice, "adb shell getprop | grep model");
+```
+This api help to execute the commands on the device. This api works only for Android devices.
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+token | Authtoken(this will get from authenticate response)
+rid | Reservation id(will get from book device api response)
+adbCommand | adb command which you want to execute on device.
+
+## Release Device
+```shell
+URL format:
+curl -H "Content-Type:application/json" -d '{"token":"authToken","rid":"rid"}' <Cloud URL>/api/release_device	
+
+Ex:
+	curl -H "Content-Type: application/json" -d '{"token": "swqkm7f55v39g9kkdggkzs", "rid": "482013"}' https://device.pcloudy.com/api/release_devices
+```
+```java
+con.releaseInstantAccessBooking(authToken, bookedDevice);
+```
+This api help you to release the device.
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+token | Authtoken(this will get from authenticate response)
+rid | Reservation id(will get from book device api response)
+
+## Push File
+```shell
+URL format:
+curl -H "Content-Type:applicatio/json" -d '{"token":"authToken","rid":"RID","pDriveFile":"filename"}' <Cloud URL>/api/pushFileToSwapBox	
+
+Ex:
+	curl -H "Content-Type: application/json" -d '{"token": "swqkm7f55v39g9kkdggkzs", "rid": "482013", "pDriveFile":"pCloudy_Appium_Demo.apk"}' https://device.pcloudy.com/api/pushFileToSwapBox
+```
+```java
+con.SwapboxAPIs().pushFile(authToken, bookedDevice, uploadedApp);
+```
+This api push the file or apk from Cloud Drive to the device swapBox.
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+token | Authtoken(this will get from authenticate response)
+rid | Reservation id(will get from book device api response)
+pDriveFile | File name which you want to push.
+
+
+## Pull File
+```shell
+URL format:
+curl -H "Content-Type:applicatio/json" -d '{"token":"TOKEN","rid":"RID","pDriveFile":"filename"}' <Cloud URL>/api/pullFileFromDevice	
+
+Ex:
+	curl -H "Content-Type: application/json" -d '{"token": "swqkm7f55v39g9kkdggkzs", "rid": "482013", "pDriveFile":"pCloudy_Appium_Demo.apk"}' https://device.pcloudy.com/api/pullFileFromDevice
+```
+```java
+PDriveFileDTO pDriveFile = con.SwapboxAPIs().pullFile(authToken, bookedDevice, appPathInSwapbox);
+
+```
+This api pull the file or apk from device swapBox to the cloud drive.
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+token | Authtoken(this will get from authenticate response)
+rid | Reservation id(will get from book device api response)
+pDriveFile | File name which you want to pull.
+
+## Capture Device Screenshot
+```shell
+URL format:
+curl -H "Content-Type:application/json" -d '{"token":"authToken", "rid":"rid", "skin":"true"}' <Cloud URL>/api/capture_device_screenshot
+Ex:
+curl -H "Content-Type:application/json" -d '{"token":"swqkm7f55v39g9kkdggkzs", "rid":"482013", "skin":"true"}' https://device.pcloudy.com/api/capture_device_screenshot
+```
+```java
+CaptureDeviceScreenshotResultDto dto = con.takeDeviceScreenshot(authToken, Integer.valueOf(bookedDevice.rid), true);
+
+```
+This api takes the screen shot of the device. This screenshot helps you to figure out the steps done by automation process.
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+token | Authtoken(this will get from authenticate response)
+rid | Reservation id(will get from book device api response)
+skin | true(Means take the screenshot).
+
+## Start Performance Data
+```shell
+URL format:
+curl -H "Content-Type:application/json" -d '{"token":"authToken", "rid":"rid", "pkg":"app package name"}' <Cloud URL>/api/start_performance_data
+Ex:
+curl -H "Content-Type:application/json" -d '{"token":"swqkm7f55v39g9kkdggkzs", "rid":"482013", "pkg":"com.pcloudy.appiumdemo "}' https://device.pcloudy.com/api/start_performance_data
+```
+```java
+con.startPerformanceData(authToken, bookedDevice.rid, install.packageName);
+```
+This api help to start the performance data of the app under testing. In this you will get battery, CPU, memory, internet and framerendering data on android device and for iOS will get the CPU, memory and network pockets under testing on that device. This data is stored in cloud drive.
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+token | Authtoken(this will get from authenticate response)
+rid | Reservation id(will get from book device api response)
+pkg | App package name (will get from install and launch api response)
+
+## Download Performance Data
+```shell
+URL format:
+curl -H "Content-Type:application/json" -d '{"token":"authToken", "rid":"rid", "filename":"fileName"}' <Cloud URL>/api/download_manual_access_data
+Ex:
+curl -H "Content-Type:application/json" -d '{"token":"swqkm7f55v39g9kkdggkzs", "rid":"482013", "filename":"filename"}' https://device.pcloudy.com/api/download_manual_access_data
+```
+```java
+PDriveFileDTO[] files = con.cloudDriveFileList(authToken, bookedDevice.rid);
+	for (PDriveFileDTO file : files) {
+	File downloadedFile = con.downloadManualPerformanceData(authToken, bookedDevice.rid, file);
+}
+```
+This helps you to download the performance data which was stored in cloud drive.
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+token | Authtoken(this will get from authenticate response)
+rid | Reservation id(will get from book device api response)
+filename | performance file name.
+
+# Automation 
+
+## Book Devices For Appium
+
+```shell
+URL format: 
+curl -H "Content-Type: application/json" -d '{"token":"authToken","duration":"duration","platform":"platform","devices":[deviceId1,deviceId2,---],"session":"sessionname","overwrite_location":"true"}' <Cloud URL>/api/appium/init
+
+Ex: 
+curl -H "Content-Type: application/json" -d '{"token":"swqkm7f55v39g9kkdggkzs","duration":"10","platform":"android","devices":[120,256],"session":"Sample session","overwrite_location":"true"}' https://device.pcloudy.com/api/appium/init
+```
+```java
+BookingDtoDevice[] bookedDevices = con.AppiumApis().bookDevicesForAppium(authToken, selectedDevices, BOOKINGDURATION, sessionName);
+```
+This api book the devices for appium execution.
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+token | Authtoken(this will get from authenticate response)
+duration | duration in minutes you want to book the each device.
+platform | on which flatform devices you want to book (android/ios).
+devices | provide array of devices id's for multiple device booking.
+session | Enter session name 
+overWrite_location | true
+
+## Init AppiumHub for App
+
+```shell
+URL format: 
+curl -H "Content-Type: application/json" -d '{"token":"authToken","app":"filename"}' <Cloud URL>/api/appium/execute
+
+Ex: 
+curl -H "Content-Type: application/json" -d '{"token":"swqkm7f55v39g9kkdggkzs","app":"pCloudy_Appium_Demo.apk"}' https://device.pcloudy.com/api/appium/execute
+```
+```java
+con.AppiumApis().initAppiumHubForApp(authToken, alreadyUploadedApp);
+```
+This initiates the appium on devices for that app. The app you had to upload by using upload api which is available in Generic api.
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+token | Authtoken(this will get from authenticate response)
+app | provide app name on which app you want to test.
+
+## Get Appium EndPoint
+```shell
+URL format: 
+curl -H "Content-Type:application/json" -d '{"token":"authToken"}' <Cloud URL>/api/appium/endpoint
+
+Ex: 
+curl -H "Content-Type:application/json" -d '{"token":"swqkm7f55v39g9kkdggkzs"}' https://device.pcloudy.com/api/appium/endpoint
+```
+```java
+URL endpoint = con.AppiumApis().getAppiumEndpoint(authToken);
+```
+This get the appium Endpoint url.
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+token | Authtoken(this will get from authenticate response)
+
+## Get Appium Report Folder
+
+```shell
+URL format: 
+curl -H "Content-Type:application/json" -d '{"token":"authToken"}' <Cloud URL>/api/appium/folder
+
+Ex: 
+curl -H "Content-Type:application/json" -d '{"token":"swqkm7f55v39g9kkdggkzs"}' https://device.pcloudy.com/api/appium/folder
+```
+```java
+URL reportFolderOnPCloudy = con.AppiumApis().getAppiumReportFolder(authToken);
+```
+This gives you the report folder path. In the report you will get the total tests pass, failed and more information about test cases.
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+token | Authtoken(this will get from authenticate response)
