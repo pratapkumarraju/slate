@@ -6,7 +6,7 @@
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>API Reference</title>
-
+	<link href="images/favicon.ico" rel="icon" type="image/ico" />
     <style>
       .highlight table td { padding: 5px; }
 .highlight table pre { margin: 0; }
@@ -201,7 +201,7 @@
       <script src="javascripts/all.js"></script>
   </head>
 
-  <body class="index" data-languages="[&quot;shell&quot;,&quot;ruby&quot;,&quot;python&quot;,&quot;javascript&quot;]">
+  <body class="index" data-languages="[&quot;shell&quot;,&quot;java&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -211,10 +211,8 @@
     <div class="toc-wrapper">
       <img src="images/logo.png" class="logo" alt="Logo" />
         <div class="lang-selector">
-              <a href="#" data-language-name="shell">shell</a>
-              <a href="#" data-language-name="ruby">ruby</a>
-              <a href="#" data-language-name="python">python</a>
-              <a href="#" data-language-name="javascript">javascript</a>
+              <a href="#" data-language-name="shell">cURL</a>
+              <a href="#" data-language-name="java">Java</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -228,16 +226,69 @@
             <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
           </li>
           <li>
-            <a href="#kittens" class="toc-h1 toc-link" data-title="Kittens">Kittens</a>
+            <a href="#generic" class="toc-h1 toc-link" data-title="Generic">Generic</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#get-all-kittens" class="toc-h2 toc-link" data-title="Get All Kittens">Get All Kittens</a>
+                    <a href="#get-user-details" class="toc-h2 toc-link" data-title="Get User Details">Get User Details</a>
                   </li>
                   <li>
-                    <a href="#get-a-specific-kitten" class="toc-h2 toc-link" data-title="Get a Specific Kitten">Get a Specific Kitten</a>
+                    <a href="#upload-app" class="toc-h2 toc-link" data-title="Upload App">Upload App</a>
                   </li>
                   <li>
-                    <a href="#delete-a-specific-kitten" class="toc-h2 toc-link" data-title="Delete a Specific Kitten">Delete a Specific Kitten</a>
+                    <a href="#get-available-apps" class="toc-h2 toc-link" data-title="Get Available Apps">Get Available Apps</a>
+                  </li>
+                  <li>
+                    <a href="#download-file-from-cloud" class="toc-h2 toc-link" data-title="Download File From Cloud">Download File From Cloud</a>
+                  </li>
+                  <li>
+                    <a href="#get-device-list" class="toc-h2 toc-link" data-title="Get Device List">Get Device List</a>
+                  </li>
+                  <li>
+                    <a href="#book-device" class="toc-h2 toc-link" data-title="Book Device">Book Device</a>
+                  </li>
+                  <li>
+                    <a href="#get-device-page-url" class="toc-h2 toc-link" data-title="Get Device Page URL">Get Device Page URL</a>
+                  </li>
+                  <li>
+                    <a href="#install-and-launch-app" class="toc-h2 toc-link" data-title="Install and Launch app">Install and Launch app</a>
+                  </li>
+                  <li>
+                    <a href="#execute-adb" class="toc-h2 toc-link" data-title="Execute ADB">Execute ADB</a>
+                  </li>
+                  <li>
+                    <a href="#release-device" class="toc-h2 toc-link" data-title="Release Device">Release Device</a>
+                  </li>
+                  <li>
+                    <a href="#push-file" class="toc-h2 toc-link" data-title="Push File">Push File</a>
+                  </li>
+                  <li>
+                    <a href="#pull-file" class="toc-h2 toc-link" data-title="Pull File">Pull File</a>
+                  </li>
+                  <li>
+                    <a href="#capture-device-screenshot" class="toc-h2 toc-link" data-title="Capture Device Screenshot">Capture Device Screenshot</a>
+                  </li>
+                  <li>
+                    <a href="#start-performance-data" class="toc-h2 toc-link" data-title="Start Performance Data">Start Performance Data</a>
+                  </li>
+                  <li>
+                    <a href="#download-performance-data" class="toc-h2 toc-link" data-title="Download Performance Data">Download Performance Data</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#automation" class="toc-h1 toc-link" data-title="Automation">Automation</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#book-devices-for-appium" class="toc-h2 toc-link" data-title="Book Devices For Appium">Book Devices For Appium</a>
+                  </li>
+                  <li>
+                    <a href="#init-appiumhub-for-app" class="toc-h2 toc-link" data-title="Init AppiumHub for App">Init AppiumHub for App</a>
+                  </li>
+                  <li>
+                    <a href="#get-appium-endpoint" class="toc-h2 toc-link" data-title="Get Appium EndPoint">Get Appium EndPoint</a>
+                  </li>
+                  <li>
+                    <a href="#get-appium-report-folder" class="toc-h2 toc-link" data-title="Get Appium Report Folder">Get Appium Report Folder</a>
                   </li>
               </ul>
           </li>
@@ -246,141 +297,80 @@
           </li>
       </div>
         <ul class="toc-footer">
-            <li><a href='#'>Sign Up for a Developer Key</a></li>
-            <li><a href='https://github.com/lord/slate'>Documentation Powered by Slate</a></li>
+            <li><a href='https://device.pcloudy.com/signup' target="_blank">Sign Up for API Key</a></li>
         </ul>
     </div>
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='introduction'>Introduction</h1>
-<p>Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.</p>
-
-<p>We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
-
-<p>This example API documentation page was created with <a href="https://github.com/lord/slate">Slate</a>. Feel free to edit it and use it as a base for your own API&#39;s documentation.</p>
+<p>The pCloudy API is organized around REST. Our API has predictable, resource-oriented URLs, and uses HTTP response codes to indicate API errors. We use built-in HTTP features, like HTTP authentication and HTTP verbs, which are understood by off-the-shelf HTTP clients.</p>
 <h1 id='authentication'>Authentication</h1>
 <blockquote>
-<p>To authorize, use this code:</p>
+<p>URL format:</p>
 </blockquote>
-<pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+<pre class="highlight shell tab-shell"><code>curl -u <span class="s2">"email:apiKey"</span> &lt;Cloud URL&gt;/api/access
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
+Note: 
+    &lt;Cloud URL&gt;: Use https://device.pcloudy.com or https://us.pcloudy.com or https://ph.pcloudy.com or https://aus.pcloudy.com <span class="k">in case</span> of public cloud otherwise use your custom cloud URL <span class="k">in case</span> of private or on premise cloud
 
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre><pre class="highlight shell tab-shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
-curl <span class="s2">"api_endpoint_here"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
+Ex: curl -u <span class="s2">"test.user@pcloudy.com:3m4t8y47mmrz8zycmqbr3f"</span> https://device.pcloudy.com/api/access
 
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
+
+Make sure to replace <span class="sb">`</span>test.user@pcloudy.com:3m4t8y47mmrz8zycmqbr3f<span class="sb">`</span> with your Email and API key.
+
+</code></pre><pre class="highlight java tab-java"><code><span class="n">Connector</span> <span class="n">con</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Connector</span><span class="o">(</span><span class="s">"https://device.pcloudy.com"</span><span class="o">);</span>
+<span class="n">String</span> <span class="n">authToken</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">authenticateUser</span><span class="o">(</span><span class="n">emailid</span><span class="o">,</span> <span class="n">apiKey</span><span class="o">);</span>
 </code></pre>
-<blockquote>
-<p>Make sure to replace <code>meowmeowmeow</code> with your API key.</p>
-</blockquote>
+<p>Authenticate your account when using the API by including your email-Id and secret API key(access Key) in the request. You can manage your API keys in the Account settings. Your API keys carry many privileges, so be sure to keep them secret! Do not share your secret API keys in publicly accessible areas such GitHub, client-side code, and so forth.
+    Authentication to the API is performed via HTTP Basic Auth. Provide your API key as the basic auth username value. You do not need to provide a password.</p>
 
-<p>Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our <a href="http://example.com/developers">developer portal</a>.</p>
+<p>All API requests must be made over HTTPS. Calls made over plain HTTP will fail. API requests without authentication will also fail.</p>
 
-<p>Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
-
-<p><code>Authorization: meowmeowmeow</code></p>
-
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
-<h1 id='kittens'>Kittens</h1><h2 id='get-all-kittens'>Get All Kittens</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">kittens</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="nx">get</span><span class="p">();</span>
-</code></pre>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fluffums"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calico"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
-</span></code></pre>
-<p>This endpoint retrieves all kittens.</p>
-<h3 id='http-request'>HTTP Request</h3>
-<p><code>GET http://example.com/api/kittens</code></p>
-<h3 id='query-parameters'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
-<th>Default</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>include_cats</td>
-<td>false</td>
-<td>If set to true, the result will also include cats.</td>
+<td>email</td>
+<td>your email id</td>
 </tr>
 <tr>
-<td>available</td>
-<td>true</td>
-<td>If set to false, the result will include kittens that have already been adopted.</td>
+<td>accessKey</td>
+<td>your access key(you will get it from account settings-&gt;API</td>
 </tr>
 </tbody></table>
+<h1 id='generic'>Generic</h1><h2 id='get-user-details'>Get User Details</h2><pre class="highlight shell tab-shell"><code>URL format:
 
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-<h2 id='get-a-specific-kitten'>Get a Specific Kitten</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+curl -H <span class="s2">"Content-Type: application/json"</span> -d <span class="s1">'{"token": "authToken"}'</span> &lt;Cloud URL&gt;/api/get_user_details
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+Ex: 
+curl -H “Content-Type:application/json” -d ‘<span class="o">{</span>“token”:”swqkm7f55v39g9kkdggkzs”<span class="o">}</span>’ https://device.pcloudy.com/api/get_user_details
+</code></pre><pre class="highlight java tab-java"><code><span class="n">UserDetailResult</span> <span class="n">userDetail</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">getUserDetails</span><span class="o">(</span><span class="n">authToken</span><span class="o">);</span>
 </code></pre>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<p>This endpoint retrieves a specific kitten.</p>
+<p>You can get the total account details like userId, email_id, username, account balance, etc., by passing the authtoken(this will get when authentication response).</p>
+<h3 id='query-parameters'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>authToken</td>
+<td>Authtoken(this will get from authenticate response)</td>
+</tr>
+</tbody></table>
+<h2 id='upload-app'>Upload App</h2><pre class="highlight shell tab-shell"><code>URL format:
+    curl -X POST -F <span class="s2">"file=@/File_Path"</span> -F <span class="s2">"source_type=raw"</span> -F <span class="s2">"token=authToken"</span> -F <span class="s2">"filter=filter"</span> &lt;Cloud URL&gt;/api/upload_file
+Ex:
+    curl -X POST -F <span class="s2">"file=@/home/pratap/Downloads/pCloudy_Appium_Demo.apk"</span> -F <span class="s2">"source_type=raw"</span> -F <span class="s2">"token=swqkm7f55v39g9kkdggkzs"</span> -F <span class="s2">"filter=all"</span> https://device.pcloudy.com/api/upload_file
+</code></pre><pre class="highlight java tab-java"><code><span class="n">PDriveFileDTO</span> <span class="n">uploadedApp</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">uploadApp</span><span class="o">(</span><span class="n">authToken</span><span class="o">,</span> <span class="n">fileToUpload</span><span class="o">);</span>
 
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-<h3 id='http-request-2'>HTTP Request</h3>
-<p><code>GET http://example.com/kittens/&lt;ID&gt;</code></p>
+</code></pre>
+<p>You can upload the apps to pcloudy cloud drive by using upload api. You can upload any file to cloud drive. Uploaded files/apps are available in MY App/Data section.</p>
 <h3 id='url-parameters'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -389,37 +379,30 @@ Remember — a happy kitten is an authenticated kitten!
 </tr>
 </thead><tbody>
 <tr>
-<td>ID</td>
-<td>The ID of the kitten to retrieve</td>
+<td>file</td>
+<td>Path of uploaded apk or ipa file</td>
+</tr>
+<tr>
+<td>source_type</td>
+<td>Mention raw type(raw)</td>
+</tr>
+<tr>
+<td>token</td>
+<td>Authtoken(this will get from authenticate response)</td>
+</tr>
+<tr>
+<td>filter</td>
+<td>You can filter the file like apk or ipa when uploading(all/apk/ipa)</td>
 </tr>
 </tbody></table>
-<h2 id='delete-a-specific-kitten'>Delete a Specific Kitten</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span>
-  -X DELETE
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+<h2 id='get-available-apps'>Get Available Apps</h2><pre class="highlight shell tab-shell"><code>URL Format:
+    curl -H <span class="s2">"Content-Type:application/json"</span> -d <span class="s1">'{"token":"authToken","limit": limit, "filter": "all"}'</span> &lt;Cloud URL&gt;/api/drive
+Ex:
+    curl -H <span class="s2">"Content-Type:application/json"</span> -d <span class="s1">'{"token":"swqkm7f55v39g9kkdggkzs","limit": 5, "filter": "all"}'</span> https://device.pcloudy.com/api/drive
+</code></pre><pre class="highlight java tab-java"><code>
+<span class="n">PDriveFileDTO</span><span class="o">[]</span> <span class="n">apps</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">getAvailableApps</span><span class="o">(</span><span class="n">String</span> <span class="n">authToken</span><span class="o">);</span>
 </code></pre>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"deleted"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">":("</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<p>This endpoint deletes a specific kitten.</p>
-<h3 id='http-request-3'>HTTP Request</h3>
-<p><code>DELETE http://example.com/kittens/&lt;ID&gt;</code></p>
+<p>Get Available app will show you total files and apps what ever you uploaded in cloud drive.</p>
 <h3 id='url-parameters-2'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -428,14 +411,471 @@ Remember — a happy kitten is an authenticated kitten!
 </tr>
 </thead><tbody>
 <tr>
-<td>ID</td>
-<td>The ID of the kitten to delete</td>
+<td>token</td>
+<td>Authtoken(this will get from authenticate response)</td>
+</tr>
+<tr>
+<td>limit</td>
+<td>How many files you want to display.</td>
+</tr>
+<tr>
+<td>filter</td>
+<td>It will filter the files and display based on filter option(all/apk/ipa).</td>
+</tr>
+</tbody></table>
+<h2 id='download-file-from-cloud'>Download File From Cloud</h2><pre class="highlight shell tab-shell"><code>URL Format:
+
+curl -O -H <span class="s2">"Content-Type:application/json"</span> -d <span class="s1">'{"token":"TOKEN","filename":"FileName","dir":"data"}'</span> &lt;Cloud URL&gt;/api/download_file
+
+
+Ex:
+     curl -O -H <span class="s2">"Content-Type:application/json"</span> -d <span class="s1">'{"token":"swqkm7f55v39g9kkdggkzs","filename":"pCloudy_Appium_Demo.apk","dir":"data"}'</span> https://device.pcloudy.com/api/download_file
+</code></pre><pre class="highlight java tab-java"><code><span class="n">File</span> <span class="n">file</span><span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">downloadFileFromCloud</span><span class="o">(</span><span class="n">authToken</span><span class="o">,</span> <span class="s">"pCloudy_Appium_Demo.apk"</span><span class="o">,</span> <span class="s">"data"</span><span class="o">);</span>
+</code></pre>
+<p>You can download files from cloud drive. This will download the apps into your system.</p>
+<h3 id='url-parameters-3'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>token</td>
+<td>Authtoken(this will get from authenticate response)</td>
+</tr>
+<tr>
+<td>filename</td>
+<td>File name which you want to download</td>
+</tr>
+<tr>
+<td>dir</td>
+<td>Directory name(data).</td>
+</tr>
+</tbody></table>
+<h2 id='get-device-list'>Get Device List</h2><pre class="highlight shell tab-shell"><code>URL Format:
+
+curl -H <span class="s2">"Content-Type: application/json"</span> -d <span class="s1">'{ "token":"authToken","duration":10, "platform":"platform", "available_now":"true"}'</span> &lt;Cloud URL&gt;/api/device
+
+Ex:
+curl -H <span class="s2">"Content-Type: application/json"</span> -d <span class="s1">'{ "token":"swqkm7f55v39g9kkdggkzs","duration":10, "platform":"android", "available_now":"true"}'</span> https://device.pcloudy.com/api/devices
+</code></pre><pre class="highlight java tab-java"><code><span class="n">For</span> <span class="n">single</span> <span class="n">device</span> <span class="nl">selection:</span>
+<span class="n">MobileDevice</span> <span class="n">selectedDevice</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">chooseSingleDevice</span><span class="o">(</span><span class="n">authToken</span><span class="o">,</span> <span class="s">"Android"</span><span class="o">);</span>
+
+<span class="n">For</span> <span class="n">Multiple</span> <span class="n">device</span> <span class="nl">selection:</span>
+
+  <span class="n">List</span><span class="o">&lt;</span><span class="n">MobileDevice</span><span class="o">&gt;</span>   <span class="n">selectedDevices</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">chooseMultipleDevices</span><span class="o">(</span><span class="n">authToken</span><span class="o">,</span> <span class="s">"android"</span><span class="o">);</span>
+</code></pre>
+<p>This api helps to get the available devices in pcloudy with total information about the each device. In the response each device is having the id which is used for booking the device.</p>
+<h3 id='url-parameters-4'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>token</td>
+<td>Authtoken(this will get from authenticate response)</td>
+</tr>
+<tr>
+<td>duration</td>
+<td>Duration in minutes(How many minutes you want to the device).</td>
+</tr>
+<tr>
+<td>platform</td>
+<td>Which platform devices(android or ios) you want to display.</td>
+</tr>
+<tr>
+<td>available_now</td>
+<td>true or false. True means display the available devices and false means display all devices(including busy and available).</td>
+</tr>
+</tbody></table>
+<h2 id='book-device'>Book Device</h2><pre class="highlight shell tab-shell"><code>URL Format:
+    curl -H <span class="s1">'ContentType:application/json'</span> -d <span class="s1">'{"token":"authToken","duration":minutes, "id":device_id}'</span> &lt;Cloud URL&gt;/api/book_device
+
+EX: curl -H <span class="s1">'ContentType:application/json'</span> -d <span class="s1">'{"token":"swqkm7f55v39g9kkdggkzs","duration":5, "id":120}'</span> https://device.pcloudy.com/api/book_device
+</code></pre><pre class="highlight java tab-java"><code><span class="n">BookingDtoResult</span> <span class="n">bookedDevice</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">bookDevice</span><span class="o">(</span><span class="n">authToken</span><span class="o">,</span> <span class="mi">10</span><span class="o">,</span> <span class="n">selectedDevice</span><span class="o">);</span>
+</code></pre>
+<p>Book Device api book the device for your testing. For device booking you had to pass the authToken, how many minutes you want book and device id. Every device having the different id.</p>
+<h3 id='url-parameters-5'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>token</td>
+<td>Authtoken(this will get from authenticate response)</td>
+</tr>
+<tr>
+<td>duration</td>
+<td>Duration in minutes(How many minutes you want to the device).</td>
+</tr>
+<tr>
+<td>id</td>
+<td>How many minutes you want to book the device.</td>
+</tr>
+</tbody></table>
+<h2 id='get-device-page-url'>Get Device Page URL</h2><pre class="highlight shell tab-shell"><code>URL Format:
+curl -H <span class="s2">"Content-Type: application/json"</span> -d <span class="s1">'{"token": "authToken","rid":"rid"}'</span> &lt;Cloud URL&gt;/api/get_device_url
+
+Ex: 
+
+curl -H <span class="s2">"Content-Type: application/json"</span> -d <span class="s1">'{"token": "swqkm7f55v39g9kkdggkzs","rid":"482013"}'</span> https://device.pcloudy.com/api/get_device_url
+</code></pre><pre class="highlight java tab-java"><code><span class="n">URL</span> <span class="n">devicePageURL</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">getDevicePageUrl</span><span class="o">(</span><span class="n">authToken</span><span class="o">,</span> <span class="n">bookedDevice</span><span class="o">);</span>
+</code></pre>
+<p>This will give you the device page url. By this url you can open the device screen directly in the browser. This helps you to connect to the device directly by passing the authToken and rid.</p>
+<h3 id='url-parameters-6'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>token</td>
+<td>Authtoken(this will get from authenticate response)</td>
+</tr>
+<tr>
+<td>rid</td>
+<td>Reservation id(will get from book device api response).</td>
+</tr>
+</tbody></table>
+<h2 id='install-and-launch-app'>Install and Launch app</h2><pre class="highlight shell tab-shell"><code>URL format:
+curl -H <span class="s2">"Content-Type: application/json"</span> -d <span class="s1">'{"token": "authToken", "rid": "rid", "filename": "filename", "grant_all_permissions":"true/false"}'</span> &lt;Cloud URL&gt;/api/install_app
+
+Ex:
+
+curl -H <span class="s2">"Content-Type: application/json"</span> -d <span class="s1">'{"token": "swqkm7f55v39g9kkdggkzs", "rid": "482013", "filename": "pCloudy_Appium_Demo.apk", "grant_all_permissions":"true"}'</span> https://device.pcloudy.com/api/install_app
+</code></pre><pre class="highlight java tab-java"><code><span class="n">InstallAndLaunchResultDto</span> <span class="n">result</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">installAndLaunchApp</span><span class="o">(</span><span class="n">authToken</span><span class="o">,</span> <span class="n">bookedDevice</span><span class="o">,</span> <span class="n">uploadedApp</span><span class="o">);</span>
+</code></pre>
+<p>Install and launch api will install the app(apk/ipa) in the device and launch it on the device. App launch will work on Android devices, but in iOS device app will install but not launch(we are working on this).</p>
+<h3 id='url-parameters-7'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>token</td>
+<td>Authtoken(this will get from authenticate response)</td>
+</tr>
+<tr>
+<td>rid</td>
+<td>Reservation id(will get from book device api response)</td>
+</tr>
+<tr>
+<td>filename</td>
+<td>app name(Need to mention apk/ipa file name which is available in cloud drive)</td>
+</tr>
+<tr>
+<td>grant_all_permissions</td>
+<td>true/false(This is provide permissions for app). This is optional.</td>
+</tr>
+</tbody></table>
+<h2 id='execute-adb'>Execute ADB</h2><pre class="highlight shell tab-shell"><code>URL format:
+curl -H <span class="s2">"Content-Type: application/json"</span> -d <span class="s1">'{"token": "authToken", "rid": "rid", "adbCommand": "adb Command"}'</span> &lt;Cloud URL&gt;/api/execute_adb 
+
+Ex:
+    curl -H <span class="s2">"Content-Type: application/json"</span> -d <span class="s1">'{"token": "swqkm7f55v39g9kkdggkzs", "rid": "482013", "adbCommand": "adb shell getprop | grep model"}'</span> https://device.pcloudy.com/api/execute_adb
+</code></pre><pre class="highlight java tab-java"><code><span class="n">String</span> <span class="n">adbdevices</span> <span class="o">=</span><span class="n">con</span><span class="o">.</span><span class="na">executeAdbCommand</span><span class="o">(</span><span class="n">authToken</span><span class="o">,</span> <span class="n">bookedDevice</span><span class="o">,</span> <span class="s">"adb shell getprop | grep model"</span><span class="o">);</span>
+</code></pre>
+<p>This api help to execute the commands on the device. This api works only for Android devices.</p>
+<h3 id='url-parameters-8'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>token</td>
+<td>Authtoken(this will get from authenticate response)</td>
+</tr>
+<tr>
+<td>rid</td>
+<td>Reservation id(will get from book device api response)</td>
+</tr>
+<tr>
+<td>adbCommand</td>
+<td>adb command which you want to execute on device.</td>
+</tr>
+</tbody></table>
+<h2 id='release-device'>Release Device</h2><pre class="highlight shell tab-shell"><code>URL format:
+curl -H <span class="s2">"Content-Type:application/json"</span> -d <span class="s1">'{"token":"authToken","rid":"rid"}'</span> &lt;Cloud URL&gt;/api/release_device   
+
+Ex:
+    curl -H <span class="s2">"Content-Type: application/json"</span> -d <span class="s1">'{"token": "swqkm7f55v39g9kkdggkzs", "rid": "482013"}'</span> https://device.pcloudy.com/api/release_devices
+</code></pre><pre class="highlight java tab-java"><code><span class="n">con</span><span class="o">.</span><span class="na">releaseInstantAccessBooking</span><span class="o">(</span><span class="n">authToken</span><span class="o">,</span> <span class="n">bookedDevice</span><span class="o">);</span>
+</code></pre>
+<p>This api help you to release the device.</p>
+<h3 id='url-parameters-9'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>token</td>
+<td>Authtoken(this will get from authenticate response)</td>
+</tr>
+<tr>
+<td>rid</td>
+<td>Reservation id(will get from book device api response)</td>
+</tr>
+</tbody></table>
+<h2 id='push-file'>Push File</h2><pre class="highlight shell tab-shell"><code>URL format:
+curl -H <span class="s2">"Content-Type:applicatio/json"</span> -d <span class="s1">'{"token":"authToken","rid":"RID","pDriveFile":"filename"}'</span> &lt;Cloud URL&gt;/api/pushFileToSwapBox 
+
+Ex:
+    curl -H <span class="s2">"Content-Type: application/json"</span> -d <span class="s1">'{"token": "swqkm7f55v39g9kkdggkzs", "rid": "482013", "pDriveFile":"pCloudy_Appium_Demo.apk"}'</span> https://device.pcloudy.com/api/pushFileToSwapBox
+</code></pre><pre class="highlight java tab-java"><code><span class="n">con</span><span class="o">.</span><span class="na">SwapboxAPIs</span><span class="o">().</span><span class="na">pushFile</span><span class="o">(</span><span class="n">authToken</span><span class="o">,</span> <span class="n">bookedDevice</span><span class="o">,</span> <span class="n">uploadedApp</span><span class="o">);</span>
+</code></pre>
+<p>This api push the file or apk from Cloud Drive to the device swapBox.</p>
+<h3 id='url-parameters-10'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>token</td>
+<td>Authtoken(this will get from authenticate response)</td>
+</tr>
+<tr>
+<td>rid</td>
+<td>Reservation id(will get from book device api response)</td>
+</tr>
+<tr>
+<td>pDriveFile</td>
+<td>File name which you want to push.</td>
+</tr>
+</tbody></table>
+<h2 id='pull-file'>Pull File</h2><pre class="highlight shell tab-shell"><code>URL format:
+curl -H <span class="s2">"Content-Type:applicatio/json"</span> -d <span class="s1">'{"token":"TOKEN","rid":"RID","pDriveFile":"filename"}'</span> &lt;Cloud URL&gt;/api/pullFileFromDevice    
+
+Ex:
+    curl -H <span class="s2">"Content-Type: application/json"</span> -d <span class="s1">'{"token": "swqkm7f55v39g9kkdggkzs", "rid": "482013", "pDriveFile":"pCloudy_Appium_Demo.apk"}'</span> https://device.pcloudy.com/api/pullFileFromDevice
+</code></pre><pre class="highlight java tab-java"><code><span class="n">PDriveFileDTO</span> <span class="n">pDriveFile</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">SwapboxAPIs</span><span class="o">().</span><span class="na">pullFile</span><span class="o">(</span><span class="n">authToken</span><span class="o">,</span> <span class="n">bookedDevice</span><span class="o">,</span> <span class="n">appPathInSwapbox</span><span class="o">);</span>
+
+</code></pre>
+<p>This api pull the file or apk from device swapBox to the cloud drive.</p>
+<h3 id='url-parameters-11'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>token</td>
+<td>Authtoken(this will get from authenticate response)</td>
+</tr>
+<tr>
+<td>rid</td>
+<td>Reservation id(will get from book device api response)</td>
+</tr>
+<tr>
+<td>pDriveFile</td>
+<td>File name which you want to pull.</td>
+</tr>
+</tbody></table>
+<h2 id='capture-device-screenshot'>Capture Device Screenshot</h2><pre class="highlight shell tab-shell"><code>URL format:
+curl -H <span class="s2">"Content-Type:application/json"</span> -d <span class="s1">'{"token":"authToken", "rid":"rid", "skin":"true"}'</span> &lt;Cloud URL&gt;/api/capture_device_screenshot
+Ex:
+curl -H <span class="s2">"Content-Type:application/json"</span> -d <span class="s1">'{"token":"swqkm7f55v39g9kkdggkzs", "rid":"482013", "skin":"true"}'</span> https://device.pcloudy.com/api/capture_device_screenshot
+</code></pre><pre class="highlight java tab-java"><code><span class="n">CaptureDeviceScreenshotResultDto</span> <span class="n">dto</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">takeDeviceScreenshot</span><span class="o">(</span><span class="n">authToken</span><span class="o">,</span> <span class="n">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">bookedDevice</span><span class="o">.</span><span class="na">rid</span><span class="o">),</span> <span class="kc">true</span><span class="o">);</span>
+
+</code></pre>
+<p>This api takes the screen shot of the device. This screenshot helps you to figure out the steps done by automation process.</p>
+<h3 id='url-parameters-12'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>token</td>
+<td>Authtoken(this will get from authenticate response)</td>
+</tr>
+<tr>
+<td>rid</td>
+<td>Reservation id(will get from book device api response)</td>
+</tr>
+<tr>
+<td>skin</td>
+<td>true(Means take the screenshot).</td>
+</tr>
+</tbody></table>
+<h2 id='start-performance-data'>Start Performance Data</h2><pre class="highlight shell tab-shell"><code>URL format:
+curl -H <span class="s2">"Content-Type:application/json"</span> -d <span class="s1">'{"token":"authToken", "rid":"rid", "pkg":"app package name"}'</span> &lt;Cloud URL&gt;/api/start_performance_data
+Ex:
+curl -H <span class="s2">"Content-Type:application/json"</span> -d <span class="s1">'{"token":"swqkm7f55v39g9kkdggkzs", "rid":"482013", "pkg":"com.pcloudy.appiumdemo "}'</span> https://device.pcloudy.com/api/start_performance_data
+</code></pre><pre class="highlight java tab-java"><code><span class="n">con</span><span class="o">.</span><span class="na">startPerformanceData</span><span class="o">(</span><span class="n">authToken</span><span class="o">,</span> <span class="n">bookedDevice</span><span class="o">.</span><span class="na">rid</span><span class="o">,</span> <span class="n">install</span><span class="o">.</span><span class="na">packageName</span><span class="o">);</span>
+</code></pre>
+<p>This api help to start the performance data of the app under testing. In this you will get battery, CPU, memory, internet and framerendering data on android device and for iOS will get the CPU, memory and network pockets under testing on that device. This data is stored in cloud drive.</p>
+<h3 id='url-parameters-13'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>token</td>
+<td>Authtoken(this will get from authenticate response)</td>
+</tr>
+<tr>
+<td>rid</td>
+<td>Reservation id(will get from book device api response)</td>
+</tr>
+<tr>
+<td>pkg</td>
+<td>App package name (will get from install and launch api response)</td>
+</tr>
+</tbody></table>
+<h2 id='download-performance-data'>Download Performance Data</h2><pre class="highlight shell tab-shell"><code>URL format:
+curl -H <span class="s2">"Content-Type:application/json"</span> -d <span class="s1">'{"token":"authToken", "rid":"rid", "filename":"fileName"}'</span> &lt;Cloud URL&gt;/api/download_manual_access_data
+Ex:
+curl -H <span class="s2">"Content-Type:application/json"</span> -d <span class="s1">'{"token":"swqkm7f55v39g9kkdggkzs", "rid":"482013", "filename":"filename"}'</span> https://device.pcloudy.com/api/download_manual_access_data
+</code></pre><pre class="highlight java tab-java"><code><span class="n">PDriveFileDTO</span><span class="o">[]</span> <span class="n">files</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">cloudDriveFileList</span><span class="o">(</span><span class="n">authToken</span><span class="o">,</span> <span class="n">bookedDevice</span><span class="o">.</span><span class="na">rid</span><span class="o">);</span>
+    <span class="k">for</span> <span class="o">(</span><span class="n">PDriveFileDTO</span> <span class="n">file</span> <span class="o">:</span> <span class="n">files</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">File</span> <span class="n">downloadedFile</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">downloadManualPerformanceData</span><span class="o">(</span><span class="n">authToken</span><span class="o">,</span> <span class="n">bookedDevice</span><span class="o">.</span><span class="na">rid</span><span class="o">,</span> <span class="n">file</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre>
+<p>This helps you to download the performance data which was stored in cloud drive.</p>
+<h3 id='url-parameters-14'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>token</td>
+<td>Authtoken(this will get from authenticate response)</td>
+</tr>
+<tr>
+<td>rid</td>
+<td>Reservation id(will get from book device api response)</td>
+</tr>
+<tr>
+<td>filename</td>
+<td>performance file name.</td>
+</tr>
+</tbody></table>
+<h1 id='automation'>Automation</h1><h2 id='book-devices-for-appium'>Book Devices For Appium</h2><pre class="highlight shell tab-shell"><code>URL format: 
+curl -H <span class="s2">"Content-Type: application/json"</span> -d <span class="s1">'{"token":"authToken","duration":"duration","platform":"platform","devices":[deviceId1,deviceId2,---],"session":"sessionname","overwrite_location":"true"}'</span> &lt;Cloud URL&gt;/api/appium/init
+
+Ex: 
+curl -H <span class="s2">"Content-Type: application/json"</span> -d <span class="s1">'{"token":"swqkm7f55v39g9kkdggkzs","duration":"10","platform":"android","devices":[120,256],"session":"Sample session","overwrite_location":"true"}'</span> https://device.pcloudy.com/api/appium/init
+</code></pre><pre class="highlight java tab-java"><code><span class="n">BookingDtoDevice</span><span class="o">[]</span> <span class="n">bookedDevices</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">AppiumApis</span><span class="o">().</span><span class="na">bookDevicesForAppium</span><span class="o">(</span><span class="n">authToken</span><span class="o">,</span> <span class="n">selectedDevices</span><span class="o">,</span> <span class="n">BOOKINGDURATION</span><span class="o">,</span> <span class="n">sessionName</span><span class="o">);</span>
+</code></pre>
+<p>This api book the devices for appium execution.</p>
+<h3 id='url-parameters-15'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>token</td>
+<td>Authtoken(this will get from authenticate response)</td>
+</tr>
+<tr>
+<td>duration</td>
+<td>duration in minutes you want to book the each device.</td>
+</tr>
+<tr>
+<td>platform</td>
+<td>on which flatform devices you want to book (android/ios).</td>
+</tr>
+<tr>
+<td>devices</td>
+<td>provide array of devices id&#39;s for multiple device booking.</td>
+</tr>
+<tr>
+<td>session</td>
+<td>Enter session name</td>
+</tr>
+<tr>
+<td>overWrite_location</td>
+<td>true</td>
+</tr>
+</tbody></table>
+<h2 id='init-appiumhub-for-app'>Init AppiumHub for App</h2><pre class="highlight shell tab-shell"><code>URL format: 
+curl -H <span class="s2">"Content-Type: application/json"</span> -d <span class="s1">'{"token":"authToken","app":"filename"}'</span> &lt;Cloud URL&gt;/api/appium/execute
+
+Ex: 
+curl -H <span class="s2">"Content-Type: application/json"</span> -d <span class="s1">'{"token":"swqkm7f55v39g9kkdggkzs","app":"pCloudy_Appium_Demo.apk"}'</span> https://device.pcloudy.com/api/appium/execute
+</code></pre><pre class="highlight java tab-java"><code><span class="n">con</span><span class="o">.</span><span class="na">AppiumApis</span><span class="o">().</span><span class="na">initAppiumHubForApp</span><span class="o">(</span><span class="n">authToken</span><span class="o">,</span> <span class="n">alreadyUploadedApp</span><span class="o">);</span>
+</code></pre>
+<p>This initiates the appium on devices for that app. The app you had to upload by using upload api which is available in Generic api.</p>
+<h3 id='url-parameters-16'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>token</td>
+<td>Authtoken(this will get from authenticate response)</td>
+</tr>
+<tr>
+<td>app</td>
+<td>provide app name on which app you want to test.</td>
+</tr>
+</tbody></table>
+<h2 id='get-appium-endpoint'>Get Appium EndPoint</h2><pre class="highlight shell tab-shell"><code>URL format: 
+curl -H <span class="s2">"Content-Type:application/json"</span> -d <span class="s1">'{"token":"authToken"}'</span> &lt;Cloud URL&gt;/api/appium/endpoint
+
+Ex: 
+curl -H <span class="s2">"Content-Type:application/json"</span> -d <span class="s1">'{"token":"swqkm7f55v39g9kkdggkzs"}'</span> https://device.pcloudy.com/api/appium/endpoint
+</code></pre><pre class="highlight java tab-java"><code><span class="n">URL</span> <span class="n">endpoint</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">AppiumApis</span><span class="o">().</span><span class="na">getAppiumEndpoint</span><span class="o">(</span><span class="n">authToken</span><span class="o">);</span>
+</code></pre>
+<p>This get the appium Endpoint url.</p>
+<h3 id='url-parameters-17'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>token</td>
+<td>Authtoken(this will get from authenticate response)</td>
+</tr>
+</tbody></table>
+<h2 id='get-appium-report-folder'>Get Appium Report Folder</h2><pre class="highlight shell tab-shell"><code>URL format: 
+curl -H <span class="s2">"Content-Type:application/json"</span> -d <span class="s1">'{"token":"authToken"}'</span> &lt;Cloud URL&gt;/api/appium/folder
+
+Ex: 
+curl -H <span class="s2">"Content-Type:application/json"</span> -d <span class="s1">'{"token":"swqkm7f55v39g9kkdggkzs"}'</span> https://device.pcloudy.com/api/appium/folder
+</code></pre><pre class="highlight java tab-java"><code><span class="n">URL</span> <span class="n">reportFolderOnPCloudy</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">AppiumApis</span><span class="o">().</span><span class="na">getAppiumReportFolder</span><span class="o">(</span><span class="n">authToken</span><span class="o">);</span>
+</code></pre>
+<p>This gives you the report folder path. In the report you will get the total tests pass, failed and more information about test cases.</p>
+<h3 id='url-parameters-18'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>token</td>
+<td>Authtoken(this will get from authenticate response)</td>
 </tr>
 </tbody></table>
 <h1 id='errors'>Errors</h1>
-<aside class="notice">This error section is stored in a separate file in `includes/_errors.md`. Slate allows you to optionally separate out your docs into many files...just save them to the `includes` folder and add them to the top of your `index.md`'s frontmatter. Files are included in the order listed.</aside>
-
-<p>The Kittn API uses the following error codes:</p>
+<p>pCloudy uses conventional HTTP response codes to indicate the success or failure of an API request. In general, codes in the 2xx range indicate success, codes in the 4xx range indicate an error that failed given the information provided(e.g., a required parameter was omitted, etc.), and codes in the 5xx range indicate an error with pCloudy’s servers(these are rare).</p>
 
 <table><thead>
 <tr>
@@ -444,40 +884,24 @@ Remember — a happy kitten is an authenticated kitten!
 </tr>
 </thead><tbody>
 <tr>
+<td>200</td>
+<td>Ok -- Everything worked as expected.</td>
+</tr>
+<tr>
 <td>400</td>
-<td>Bad Request -- Your request sucks.</td>
+<td>Bad request -- The request was unacceptable.</td>
 </tr>
 <tr>
 <td>401</td>
-<td>Unauthorized -- Your API key is wrong.</td>
+<td>Unauthorized -- Your email or API key is wrong.</td>
 </tr>
 <tr>
-<td>403</td>
-<td>Forbidden -- The kitten requested is hidden for administrators only.</td>
+<td>402</td>
+<td>Request failed -- The parameters were valid but request failed.</td>
 </tr>
 <tr>
 <td>404</td>
-<td>Not Found -- The specified kitten could not be found.</td>
-</tr>
-<tr>
-<td>405</td>
-<td>Method Not Allowed -- You tried to access a kitten with an invalid method.</td>
-</tr>
-<tr>
-<td>406</td>
-<td>Not Acceptable -- You requested a format that isn&#39;t json.</td>
-</tr>
-<tr>
-<td>410</td>
-<td>Gone -- The kitten requested has been removed from our servers.</td>
-</tr>
-<tr>
-<td>418</td>
-<td>I&#39;m a teapot.</td>
-</tr>
-<tr>
-<td>429</td>
-<td>Too Many Requests -- You&#39;re requesting too many kittens! Slow down!</td>
+<td>Not found -- The requested resource doesn’t exits.</td>
 </tr>
 <tr>
 <td>500</td>
@@ -492,10 +916,8 @@ Remember — a happy kitten is an authenticated kitten!
       </div>
       <div class="dark-box">
           <div class="lang-selector">
-                <a href="#" data-language-name="shell">shell</a>
-                <a href="#" data-language-name="ruby">ruby</a>
-                <a href="#" data-language-name="python">python</a>
-                <a href="#" data-language-name="javascript">javascript</a>
+                <a href="#" data-language-name="shell">cURL</a>
+                <a href="#" data-language-name="java">Java</a>
           </div>
       </div>
     </div>
