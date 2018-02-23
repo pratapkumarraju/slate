@@ -19,6 +19,7 @@ search: true
 
 The pCloudy API is organized around REST. Our API has predictable, resource-oriented URLs, and uses HTTP response codes to indicate API errors. We use built-in HTTP features, like HTTP authentication and HTTP verbs, which are understood by off-the-shelf HTTP clients.
 
+	
 # Authentication
 
 > URL format:
@@ -38,8 +39,14 @@ Make sure to replace `test.user@pcloudy.com:3m4t8y47mmrz8zycmqbr3f` with your Em
  
 
 ```java
+Download the java connector jar from the following link- http://pcloudy-content-distribution.s3.amazonaws.com/index.html
+
 Connector con = new Connector("https://device.pcloudy.com");
 String authToken = con.authenticateUser(emailid, apiKey);
+
+Note: 
+	Replace the 'https://device.pcloudy.com' with your custom cloud URL in case of private or on premise cloud.
+	
 ```
 
 
@@ -49,11 +56,14 @@ Authenticate your account when using the API by including your email-Id and secr
 
 	All API requests must be made over HTTPS. Calls made over plain HTTP will fail. API requests without authentication will also fail.
 
+Note: If you are using the Java,Dowload the pCloudy java connector jar from the link-
+ <a href="http://pcloudy-content-distribution.s3.amazonaws.com/index.html" target = "_blank"> pCloudy java Connector</a>
+
 ###
 Parameter |  Description
 --------- |  -----------
 email | your email id
-accessKey | your access key(you will get it from account settings->API
+accessKey | your access key(you will get it from account settings->API)
 
 
 
@@ -90,7 +100,7 @@ authToken | Authtoken(this will get from authenticate response)
 URL format:
 	curl -X POST -F "file=@/File_Path" -F "source_type=raw" -F "token=authToken" -F "filter=filter" <Cloud URL>/api/upload_file
 Ex:
-	curl -X POST -F "file=@/home/pratap/Downloads/pCloudy_Appium_Demo.apk" -F "source_type=raw" -F "token=swqkm7f55v39g9kkdggkzs" -F "filter=all" https://device.pcloudy.com/api/upload_file
+	curl -X POST -F "file=@/home/user/Downloads/pCloudy_Appium_Demo.apk" -F "source_type=raw" -F "token=swqkm7f55v39g9kkdggkzs" -F "filter=all" https://device.pcloudy.com/api/upload_file
 ```
 
 ```java
