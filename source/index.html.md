@@ -32,20 +32,19 @@ Note:
 
 Ex: curl -u "test.user@pcloudy.com:3m4t8y47mmrz8zycmqbr3f" https://device.pcloudy.com/api/access
 
-
 Make sure to replace `test.user@pcloudy.com:3m4t8y47mmrz8zycmqbr3f` with your Email and API key.
 
 ```
  
 
 ```java
-Download the java connector jar from the following link- http://pcloudy-content-distribution.s3.amazonaws.com/index.html
+Download the pCloudy java connector jar from the following link- http://pcloudy-content-distribution.s3.amazonaws.com/index.html
 
 Connector con = new Connector("https://device.pcloudy.com");
 String authToken = con.authenticateUser(emailid, apiKey);
 
 Note: 
-	Replace the 'https://device.pcloudy.com' with your custom cloud URL in case of private or on premise cloud.
+	Replace the 'https://device.pcloudy.com' with https://us.pcloudy.com or https://ph.pcloudy.com or https://aus.pcloudy.com in case of public sub clouds or your custom cloud URL in case of private or on premise cloud.
 	
 ```
 
@@ -56,14 +55,14 @@ Authenticate your account when using the API by including your email-Id and secr
 
 	All API requests must be made over HTTPS. Calls made over plain HTTP will fail. API requests without authentication will also fail.
 
-Note: If you are using the Java,Dowload the pCloudy java connector jar from the link-
+<b>Note:</b> If you are using the Java,Dowload the pCloudy java connector jar from the link-
  <a href="http://pcloudy-content-distribution.s3.amazonaws.com/index.html" target = "_blank"> pCloudy java Connector</a>
 
 ###
 Parameter |  Description
 --------- |  -----------
 email | your email id
-accessKey | your access key(you will get it from account settings->API)
+accessKey | your access key(you will get it from Account Settings->API)
 
 
 
@@ -216,8 +215,8 @@ Book Device api book the device for your testing. For device booking you had to 
 Parameter | Description
 --------- | -----------
 token | Authtoken(this will get from authenticate response)
-duration  | Duration in minutes(How many minutes you want to the device).
-id  | How many minutes you want to book the device.
+duration  | Duration in minutes(How many minutes you want to book the device).
+id  | Device id(will get from get devices api response).
 
 ## Get Device Page URL
 ```shell
