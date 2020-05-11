@@ -277,6 +277,9 @@
                     <a href="#download-performance-data" class="toc-h2 toc-link" data-title="Download Performance Data">Download Performance Data</a>
                   </li>
                   <li>
+                    <a href="#wildnet" class="toc-h2 toc-link" data-title="Wildnet">Wildnet</a>
+                  </li>
+                  <li>
                     <a href="#release-device" class="toc-h2 toc-link" data-title="Release Device">Release Device</a>
                   </li>
               </ul>
@@ -357,11 +360,11 @@ Make sure to replace <span class="sb">`</span>test.user@pcloudy.com:3m4t8y47mmrz
 </code></pre>
 <p>pCloudy REST API uses HTTP Basic Authentication.
 Follow the steps mentioned below:
-    •Authenticate your account  while using the API by including your email-Id and secret API key(access Key) in the request. </p>
+ •Authenticate your account while using the API by including your email-Id and secret API key(access Key) in the request.</p>
 
-<p>•You can manage your API keys in the Account settings. </p>
+<p>•You can manage your API keys in the Account settings.</p>
 
-<p>•Your API keys carry many privileges, so be sure to keep them secret! Do not share your secret API keys in publicly accessible areas such GitHub, client-side code, and so forth. </p>
+<p>•Your API keys carry many privileges, so be sure to keep them secret! Do not share your secret API keys in publicly accessible areas such GitHub, client-side code, and so forth.</p>
 
 <p>•Authentication to the API is performed via HTTP Basic Auth. Provide your API key as the basic auth username value. You do not need to provide a password.</p>
 
@@ -389,8 +392,11 @@ Follow the steps mentioned below:
 
 curl -H <span class="s2">"Content-Type: application/json"</span> -d <span class="s1">'{"token": "authToken"}'</span> &lt;Cloud URL&gt;/api/get_user_details
 
+Note: Please change the curl like below <span class="k">if </span>above one not works <span class="k">for </span>all the apis
+ curl -H <span class="s2">"Content-Type: application/json"</span> -d <span class="s2">"{</span><span class="se">\"</span><span class="s2">token</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">authToken</span><span class="se">\"</span><span class="s2">}"</span> &lt;Cloud URL&gt;/api/get_user_details
+
 Ex: 
-curl -H “Content-Type:application/json” -d ‘<span class="o">{</span>“token”:”swqkm7f55v39g9kkdggkzs”<span class="o">}</span>’ https://device.pcloudy.com/api/get_user_details
+curl -H <span class="s2">"Content-Type:application/json"</span> -d <span class="s1">'{"token":"swqkm7f55v39g9kkdggkzs"}'</span> https://device.pcloudy.com/api/get_user_details
 </code></pre><pre class="highlight java tab-java"><code><span class="n">UserDetailResult</span> <span class="n">userDetail</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">getUserDetails</span><span class="o">(</span><span class="n">authToken</span><span class="o">);</span>
 </code></pre>
 <p>Using this API,user will get all the account details like userId, email_id, username, account balance, etc.</p>
@@ -538,7 +544,7 @@ Ex:
 </tbody></table>
 <h2 id='get-device-list'>Get Device List</h2><pre class="highlight shell tab-shell"><code>URL Format:
 
-curl -H <span class="s2">"Content-Type: application/json"</span> -d <span class="s1">'{ "token":"authToken","duration":10, "platform":"platform", "available_now":"true"}'</span> &lt;Cloud URL&gt;/api/device
+curl -H <span class="s2">"Content-Type: application/json"</span> -d <span class="s1">'{ "token":"authToken","duration":10, "platform":"platform", "available_now":"true"}'</span> &lt;Cloud URL&gt;/api/devices
 
 Ex:
 curl -H <span class="s2">"Content-Type: application/json"</span> -d <span class="s1">'{ "token":"swqkm7f55v39g9kkdggkzs","duration":10, "platform":"android", "available_now":"true"}'</span> https://device.pcloudy.com/api/devices
@@ -879,6 +885,30 @@ curl -H <span class="s2">"Content-Type:application/json"</span> -d <span class="
 <td>performance file name.</td>
 </tr>
 </tbody></table>
+<h2 id='wildnet'>Wildnet</h2><pre class="highlight shell tab-shell"><code>URL format:
+curl -H <span class="s2">"Content-Type:application/json"</span> -d <span class="s1">'{"token":"authToken", "rid":"rid"}'</span> &lt;Cloud URL&gt;/api/startwildnet
+Ex:
+curl -H <span class="s2">"Content-Type:application/json"</span> -d <span class="s1">'{"token":"swqkm7f55v39g9kkdggkzs", "rid":"482013"}'</span> https://device.pcloudy.com/api/startwildnet
+</code></pre><pre class="highlight java tab-java"><code> <span class="n">con</span><span class="o">.</span><span class="na">startWildnetService</span><span class="o">(</span><span class="n">authToken</span><span class="o">,</span> <span class="n">bookedDevice</span><span class="o">.</span><span class="na">rid</span><span class="o">);</span>
+
+</code></pre>
+<p>Using this feature you can test your local site on any android and iOS devices on pCloudy platform. You can use this feature either &quot;Manual&quot; or &quot;Appium Automation. For more information gothrough the <a href="https://www.pcloudy.com/mobile-application-testing-documentation/manual-app-testing/wildnet.php" target = "_blank"> documentation</a>.</p>
+<h3 id='url-parameters-17'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>token</td>
+<td>Authtoken(this will get from authenticate response)</td>
+</tr>
+<tr>
+<td>rid</td>
+<td>Reservation id(will get from book device api response)</td>
+</tr>
+</tbody></table>
 <h2 id='release-device'>Release Device</h2><pre class="highlight shell tab-shell"><code>URL format:
 curl -H <span class="s2">"Content-Type:application/json"</span> -d <span class="s1">'{"token":"authToken","rid":"rid"}'</span> &lt;Cloud URL&gt;/api/release_device   
 
@@ -887,7 +917,7 @@ Ex:
 </code></pre><pre class="highlight java tab-java"><code><span class="n">con</span><span class="o">.</span><span class="na">releaseInstantAccessBooking</span><span class="o">(</span><span class="n">authToken</span><span class="o">,</span> <span class="n">bookedDevice</span><span class="o">);</span>
 </code></pre>
 <p>This api help you to release the device.</p>
-<h3 id='url-parameters-17'>URL Parameters</h3>
+<h3 id='url-parameters-18'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -911,7 +941,7 @@ curl -H <span class="s2">"Content-Type: application/json"</span> -d <span class=
 </code></pre><pre class="highlight java tab-java"><code><span class="n">BookingDtoDevice</span><span class="o">[]</span> <span class="n">bookedDevices</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">AppiumApi</span><span class="o">().</span><span class="na">bookDevicesForAppium</span><span class="o">(</span><span class="n">authToken</span><span class="o">,</span> <span class="n">selectedDevices</span><span class="o">,</span> <span class="n">BOOKINGDURATION</span><span class="o">,</span> <span class="n">sessionName</span><span class="o">);</span>
 </code></pre>
 <p>This api book the devices for appium execution.</p>
-<h3 id='url-parameters-18'>URL Parameters</h3>
+<h3 id='url-parameters-19'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -951,7 +981,7 @@ curl -H <span class="s2">"Content-Type: application/json"</span> -d <span class=
 </code></pre><pre class="highlight java tab-java"><code><span class="n">con</span><span class="o">.</span><span class="na">AppiumApi</span><span class="o">().</span><span class="na">initAppiumHubForApp</span><span class="o">(</span><span class="n">authToken</span><span class="o">,</span> <span class="n">alreadyUploadedApp</span><span class="o">);</span>
 </code></pre>
 <p>This initiates the appium on devices for that app. The app you had to upload by using <b>upload api</b> which is available in Generic api.</p>
-<h3 id='url-parameters-19'>URL Parameters</h3>
+<h3 id='url-parameters-20'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -975,7 +1005,7 @@ curl -H <span class="s2">"Content-Type:application/json"</span> -d <span class="
 </code></pre><pre class="highlight java tab-java"><code><span class="n">URL</span> <span class="n">endpoint</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">AppiumApi</span><span class="o">().</span><span class="na">getAppiumEndpoint</span><span class="o">(</span><span class="n">authToken</span><span class="o">);</span>
 </code></pre>
 <p>This get the appium Endpoint url.</p>
-<h3 id='url-parameters-20'>URL Parameters</h3>
+<h3 id='url-parameters-21'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -995,7 +1025,7 @@ curl -H <span class="s2">"Content-Type:application/json"</span> -d <span class="
 </code></pre><pre class="highlight java tab-java"><code><span class="n">URL</span> <span class="n">reportFolderOnPCloudy</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">AppiumApi</span><span class="o">().</span><span class="na">getAppiumReportFolder</span><span class="o">(</span><span class="n">authToken</span><span class="o">);</span>
 </code></pre>
 <p>This gives you the report folder path. In the report you will get the total tests pass, failed and more information about test cases.</p>
-<h3 id='url-parameters-21'>URL Parameters</h3>
+<h3 id='url-parameters-22'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1015,7 +1045,7 @@ curl -H <span class="s2">"Content-Type: application/json"</span> -d <span class=
 </code></pre><pre class="highlight java tab-java"><code><span class="n">ScheduleAutomationResult</span> <span class="n">result</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">AutomationApi</span><span class="o">().</span><span class="na">scheduleEspressoExecution</span><span class="o">(</span><span class="n">authToken</span><span class="o">,</span> <span class="n">listOfSelectedDevices</span><span class="o">,</span> <span class="n">BOOKINGDURATION</span><span class="o">,</span> <span class="n">cloudDriveApkFile</span><span class="o">,</span> <span class="n">cloudDriveTestApkFile</span><span class="o">,</span> <span class="n">instrumentationType</span><span class="o">,</span> <span class="n">espressoCyclename</span><span class="o">);</span>
 </code></pre>
 <p>This api schedule the espresso execution and run the espresso on selected devices.</p>
-<h3 id='url-parameters-22'>URL Parameters</h3>
+<h3 id='url-parameters-23'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1059,7 +1089,7 @@ curl -H <span class="s2">"Content-Tyepe:application/json"</span> -d <span class=
 </code></pre><pre class="highlight java tab-java"><code><span class="n">AutomationReportURL</span> <span class="n">url</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">AutomationApi</span><span class="o">().</span><span class="na">getEspressoReportURL</span><span class="o">(</span><span class="n">authToken</span><span class="o">,</span> <span class="n">tid</span><span class="o">);</span>
 </code></pre>
 <p>This gives you the Espresso report URL.</p>
-<h3 id='url-parameters-23'>URL Parameters</h3>
+<h3 id='url-parameters-24'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1084,7 +1114,7 @@ curl -H <span class="s2">"Content-Tyepe:application/json"</span> -d <span class=
 </code></pre>
 <p>This gives you the total network profile list with upload and download speed that are present in device under Network feture in pCloudy.
 e.g 3G,2G,4G,Broadband Low Speed.</p>
-<h3 id='url-parameters-24'>URL Parameters</h3>
+<h3 id='url-parameters-25'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1106,7 +1136,7 @@ Ex: curl -H <span class="s2">"Content-Tyep:application/json"</span> -d <span cla
 <p>This api set the network profile on booked device. </p>
 
 <p><b>Note:</b>Network profile name should be pass as one of the parameter.</p>
-<h3 id='url-parameters-25'>URL Parameters</h3>
+<h3 id='url-parameters-26'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1134,7 +1164,7 @@ Ex: curl -H <span class="s2">"Content-Tyep:application/json"</span> -d <span cla
 </code></pre><pre class="highlight java tab-java"><code>  <span class="n">con</span><span class="o">.</span><span class="na">NetworkSimulationApi</span><span class="o">().</span><span class="na">unShapeAtcd</span><span class="o">(</span><span class="n">authToken</span><span class="o">,</span> <span class="n">bookedDevice</span><span class="o">);</span>
 </code></pre>
 <p>This api unshape the network profile that was already set in the device.. </p>
-<h3 id='url-parameters-26'>URL Parameters</h3>
+<h3 id='url-parameters-27'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1150,6 +1180,8 @@ Ex: curl -H <span class="s2">"Content-Tyep:application/json"</span> -d <span cla
 <td>Reservation id(will get from book device api response)</td>
 </tr>
 </tbody></table>
+
+<p>s</p>
 <h1 id='errors'>Errors</h1>
 <p>pCloudy uses conventional HTTP response codes to indicate the success or failure of an API request. In general, codes in the 2xx range indicate success, codes in the 4xx range indicate an error that failed given the information provided(e.g., a required parameter was omitted, etc.), and codes in the 5xx range indicate an error with pCloudy’s servers(these are rare).</p>
 
