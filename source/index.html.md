@@ -226,7 +226,7 @@ For Multiple device selection:
 
   List<MobileDevice>   selectedDevices = con.chooseMultipleDevices(authToken, "android");
 ```
-This api helps to get the list of all available devices in pCloudy with all the relevant details ablout each device.
+This api helps to get the list of all available devices in pCloudy with all the relevant details(full_name,id, model, version, mobile number, dpi, etc.) about each device.
 
 <b>Note:</b>In the response each device is having unique id which is used for booking the device.
 ### URL Parameters
@@ -234,6 +234,33 @@ This api helps to get the list of all available devices in pCloudy with all the 
 Parameter | Description
 --------- | -----------
 token | Authtoken(this will get from authenticate response)
+duration  | Duration in minutes(How many minutes you want to the device).
+platform  | Which platform devices(android or ios) you want to display.
+available_now | true or false. True means display the available devices and false means display all devices(including busy and available).
+
+## Get Single Device Details
+```shell
+URL Format:
+
+curl -H "Content-Type: application/json" -d '{ "token":"authToken","id":"deviceId", "full_name": "deviceFullName" "platform":"platform", "manufacturer":"ManufactureName", "version": "version", "model": "deviceModel", "number":"mobilenumber", "duration":duration, "available_now":"true"}' <Cloud URL>/api/get_devices_details
+
+Ex:
+curl -H "Content-Type: application/json" -d '{ "token":"swqkm7f55v39g9kkdggkzs","id":"525", "full_name": "Apple_iPhone6S_Ios_11.4.1", platform": "ios", "manufacturer":"Apple", "version": "11.4.1", "model": "iPhone6S", "number":"any", "duration":15, "available_now":"true"}' https://device.pcloudy.com/api/get_devices_details
+```
+
+```java
+
+```
+This api helps to get the single device details(full_name,id, model, version, mobile number, dpi, etc.).
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+token | Authtoken(this will get from authenticate response)
+id | DeviceId(This will get from Get Device list api response)
+full_name | Device Full Name (This will get from Get Device list api response)
+version | Device version
+model | Device Model(This will get from Get Device list api response)
 duration  | Duration in minutes(How many minutes you want to the device).
 platform  | Which platform devices(android or ios) you want to display.
 available_now | true or false. True means display the available devices and false means display all devices(including busy and available).
@@ -411,7 +438,24 @@ Parameter | Description
 --------- | -----------
 token | Authtoken(this will get from authenticate response)
 rid | Reservation id(will get from book device api response)
-skin | true(Means take the screenshot).
+
+## Get Device Session Details
+```shell
+URL format:
+curl -H "Content-Type:application/json" -d '{"token":"authToken", "rid":"rid"}' <Cloud URL>/api/get_device_sessionDetails
+Ex:
+curl -H "Content-Type:application/json" -d '{"token":"swqkm7f55v39g9kkdggkzs", "rid":"482013"}' https://device.pcloudy.com/api/get_device_sessionDetails
+```
+```java
+
+```
+This api get the total session details like session start time, session end time and remaining session time.
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+token | Authtoken(this will get from authenticate response)
+rid | Reservation id(will get from book device api response)
 
 ## Start Performance Data
 ```shell
@@ -483,7 +527,7 @@ curl -H "Content-Type:application/json" -d '{"token":"swqkm7f55v39g9kkdggkzs", "
  con.startWildnetService(authToken, bookedDevice.rid);
 	
 ```
-Using this feature you can test your local site on any android and iOS devices on pCloudy platform. You can use this feature either "Manual" or "Appium Automation. For more information gothrough the <a href="https://www.pcloudy.com/mobile-application-testing-documentation/manual-app-testing/wildnet.php" target = "_blank"> documentation</a>.
+Using this feature you can test your local site on any android and iOS devices on pCloudy platform. You can use this feature either Manual or Appium Automation. For more information gothrough the <a href="https://www.pcloudy.com/mobile-application-testing-documentation/manual-app-testing/wildnet.php" target = "_blank"> documentation</a>.
 ### URL Parameters
 
 Parameter | Description
@@ -594,7 +638,28 @@ Parameter | Description
 --------- | -----------
 token | Authtoken(this will get from authenticate response)
 
-## Schedule Espresso
+## Download Appium Performance Data
+
+```shell
+URL format: 
+curl -H "Content-Type:application/json" -d '{"token":"authToken","rid":"rid","filename":"fileName"}' <Cloud URL>/api/appium/download_appium_access_data
+
+Ex: 
+curl -H "Content-Type:application/json" -d '{"token":"swqkm7f55v39g9kkdggkzs","rid":"1234","filename":"cpu.txt"}' https://device.pcloudy.com/api/appium/download_appium_access_data
+```
+```java
+ con.AppiumApi().downloadPerformanceDataByName(authToken,rid,fileName);
+```
+This will download the performance data like cpu, memory,battery and video. 
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+token | Authtoken(this will get from authenticate response)
+rid   | Reservation id(will get from appium/init api response for each device)
+filename | Performance list file name(cpu.txt, bat.txt, mem.txt, video.flv)
+
+<!-- ## Schedule Espresso
 
 ```shell
 URL format: 
@@ -637,7 +702,7 @@ This gives you the Espresso report URL.
 Parameter | Description
 --------- | -----------
 token | Authtoken(this will get from authenticate response)
-tid | Transaction id(this will get from espresso execution api's response)
+tid | Transaction id(this will get from espresso execution api's response) -->
 
 
 # Network Simulation
@@ -704,4 +769,4 @@ Parameter | Description
 --------- | -----------
 token | Authtoken(this will get from authenticate response)
 rid | Reservation id(will get from book device api response)
-s
+
