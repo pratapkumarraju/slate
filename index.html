@@ -247,6 +247,9 @@
                     <a href="#get-device-list" class="toc-h2 toc-link" data-title="Get Device List">Get Device List</a>
                   </li>
                   <li>
+                    <a href="#get-single-device-details" class="toc-h2 toc-link" data-title="Get Single Device Details">Get Single Device Details</a>
+                  </li>
+                  <li>
                     <a href="#book-device" class="toc-h2 toc-link" data-title="Book Device">Book Device</a>
                   </li>
                   <li>
@@ -266,6 +269,9 @@
                   </li>
                   <li>
                     <a href="#capture-device-screenshot" class="toc-h2 toc-link" data-title="Capture Device Screenshot">Capture Device Screenshot</a>
+                  </li>
+                  <li>
+                    <a href="#get-device-session-details" class="toc-h2 toc-link" data-title="Get Device Session Details">Get Device Session Details</a>
                   </li>
                   <li>
                     <a href="#start-performance-data" class="toc-h2 toc-link" data-title="Start Performance Data">Start Performance Data</a>
@@ -300,10 +306,7 @@
                     <a href="#get-appium-report-folder" class="toc-h2 toc-link" data-title="Get Appium Report Folder">Get Appium Report Folder</a>
                   </li>
                   <li>
-                    <a href="#schedule-espresso" class="toc-h2 toc-link" data-title="Schedule Espresso">Schedule Espresso</a>
-                  </li>
-                  <li>
-                    <a href="#get-espresso-report-url" class="toc-h2 toc-link" data-title="Get Espresso Report URL">Get Espresso Report URL</a>
+                    <a href="#download-appium-performance-data" class="toc-h2 toc-link" data-title="Download Appium Performance Data">Download Appium Performance Data</a>
                   </li>
               </ul>
           </li>
@@ -555,7 +558,7 @@ curl -H <span class="s2">"Content-Type: application/json"</span> -d <span class=
 
   <span class="n">List</span><span class="o">&lt;</span><span class="n">MobileDevice</span><span class="o">&gt;</span>   <span class="n">selectedDevices</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">chooseMultipleDevices</span><span class="o">(</span><span class="n">authToken</span><span class="o">,</span> <span class="s">"android"</span><span class="o">);</span>
 </code></pre>
-<p>This api helps to get the list of all available devices in pCloudy with all the relevant details ablout each device.</p>
+<p>This api helps to get the list of all available devices in pCloudy with all the relevant details(full_name,id, model, version, mobile number, dpi, etc.) about each device.</p>
 
 <p><b>Note:</b>In the response each device is having unique id which is used for booking the device.</p>
 <h3 id='url-parameters-6'>URL Parameters</h3>
@@ -582,6 +585,55 @@ curl -H <span class="s2">"Content-Type: application/json"</span> -d <span class=
 <td>true or false. True means display the available devices and false means display all devices(including busy and available).</td>
 </tr>
 </tbody></table>
+<h2 id='get-single-device-details'>Get Single Device Details</h2><pre class="highlight shell tab-shell"><code>URL Format:
+
+curl -H <span class="s2">"Content-Type: application/json"</span> -d <span class="s1">'{ "token":"authToken","id":"deviceId", "full_name": "deviceFullName" "platform":"platform", "manufacturer":"ManufactureName", "version": "version", "model": "deviceModel", "number":"mobilenumber", "duration":duration, "available_now":"true"}'</span> &lt;Cloud URL&gt;/api/get_devices_details
+
+Ex:
+curl -H <span class="s2">"Content-Type: application/json"</span> -d <span class="s1">'{ "token":"swqkm7f55v39g9kkdggkzs","id":"525", "full_name": "Apple_iPhone6S_Ios_11.4.1", platform": "ios", "manufacturer":"Apple", "version": "11.4.1", "model": "iPhone6S", "number":"any", "duration":15, "available_now":"true"}'</span> https://device.pcloudy.com/api/get_devices_details
+</code></pre><pre class="highlight java tab-java"><code>
+</code></pre>
+<p>This api helps to get the single device details(full_name,id, model, version, mobile number, dpi, etc.).</p>
+<h3 id='url-parameters-7'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>token</td>
+<td>Authtoken(this will get from authenticate response)</td>
+</tr>
+<tr>
+<td>id</td>
+<td>DeviceId(This will get from Get Device list api response)</td>
+</tr>
+<tr>
+<td>full_name</td>
+<td>Device Full Name (This will get from Get Device list api response)</td>
+</tr>
+<tr>
+<td>version</td>
+<td>Device version</td>
+</tr>
+<tr>
+<td>model</td>
+<td>Device Model(This will get from Get Device list api response)</td>
+</tr>
+<tr>
+<td>duration</td>
+<td>Duration in minutes(How many minutes you want to the device).</td>
+</tr>
+<tr>
+<td>platform</td>
+<td>Which platform devices(android or ios) you want to display.</td>
+</tr>
+<tr>
+<td>available_now</td>
+<td>true or false. True means display the available devices and false means display all devices(including busy and available).</td>
+</tr>
+</tbody></table>
 <h2 id='book-device'>Book Device</h2><pre class="highlight shell tab-shell"><code>URL Format:
     curl -H <span class="s1">'ContentType:application/json'</span> -d <span class="s1">'{"token":"authToken","duration":minutes, "id":device_id}'</span> &lt;Cloud URL&gt;/api/book_device
 
@@ -589,7 +641,7 @@ EX: curl -H <span class="s1">'ContentType:application/json'</span> -d <span clas
 </code></pre><pre class="highlight java tab-java"><code><span class="n">BookingDtoResult</span> <span class="n">bookedDevice</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">bookDevice</span><span class="o">(</span><span class="n">authToken</span><span class="o">,</span> <span class="mi">10</span><span class="o">,</span> <span class="n">selectedDevice</span><span class="o">);</span>
 </code></pre>
 <p>Book Device api book the device for your testing. For device booking you had to pass the authToken, how many minutes you want book and device id. Every device having the different id.</p>
-<h3 id='url-parameters-7'>URL Parameters</h3>
+<h3 id='url-parameters-8'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -618,7 +670,7 @@ curl -H <span class="s2">"Content-Type: application/json"</span> -d <span class=
 </code></pre><pre class="highlight java tab-java"><code><span class="n">URL</span> <span class="n">devicePageURL</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">getDevicePageUrl</span><span class="o">(</span><span class="n">authToken</span><span class="o">,</span> <span class="n">bookedDevice</span><span class="o">);</span>
 </code></pre>
 <p>This will give you the  url using which, you can open the booked device screen directly in the browser. This helps you to connect to the device directly by passing the authToken and rid.</p>
-<h3 id='url-parameters-8'>URL Parameters</h3>
+<h3 id='url-parameters-9'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -643,7 +695,7 @@ curl -H <span class="s2">"Content-Type: application/json"</span> -d <span class=
 </code></pre><pre class="highlight java tab-java"><code><span class="n">InstallAndLaunchResultDto</span> <span class="n">result</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">installAndLaunchApp</span><span class="o">(</span><span class="n">authToken</span><span class="o">,</span> <span class="n">bookedDevice</span><span class="o">,</span> <span class="n">uploadedApp</span><span class="o">);</span>
 </code></pre>
 <p>Install and launch api will install the app(apk/ipa) in the device and launch it on the device. App launch will work on Android devices, but in iOS device app will install but not launch(we are working on this).</p>
-<h3 id='url-parameters-9'>URL Parameters</h3>
+<h3 id='url-parameters-10'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -681,7 +733,7 @@ Ex:
 <p>Popular adb commands
 adb shell - launches a shell on the device.
 adb logcat - allows you to view the device log in real-time.</p>
-<h3 id='url-parameters-10'>URL Parameters</h3>
+<h3 id='url-parameters-11'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -705,7 +757,7 @@ adb logcat - allows you to view the device log in real-time.</p>
 </code></pre><pre class="highlight java tab-java"><code><span class="n">String</span> <span class="n">adbConnect</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">startAdbBridge</span><span class="o">(</span><span class="n">userName</span><span class="o">,</span> <span class="n">authToken</span><span class="o">,</span> <span class="n">bookedDevice</span><span class="o">);</span>
 </code></pre>
 <p>Users can connect any Device using DeviceTunnel as if the device is connected physically with their local machine with usb. This can be used by Developers to controll a device using ADB commands and debug their apps in real time.</p>
-<h3 id='url-parameters-11'>URL Parameters</h3>
+<h3 id='url-parameters-12'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -735,7 +787,7 @@ Ex:
 <p>This api push the file or apk from Cloud Drive to the device swapBox. In Android device you can find swapBox in Internal storage.</p>
 
 <p><b>Note:</b>This works only on Android device.</p>
-<h3 id='url-parameters-12'>URL Parameters</h3>
+<h3 id='url-parameters-13'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -785,7 +837,7 @@ curl -H <span class="s2">"Content-Type:application/json"</span> -d <span class="
 
 </code></pre>
 <p>This api takes the screen shot of the device. This screenshot helps you to figure out the steps done by automation process.</p>
-<h3 id='url-parameters-13'>URL Parameters</h3>
+<h3 id='url-parameters-14'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -800,9 +852,28 @@ curl -H <span class="s2">"Content-Type:application/json"</span> -d <span class="
 <td>rid</td>
 <td>Reservation id(will get from book device api response)</td>
 </tr>
+</tbody></table>
+<h2 id='get-device-session-details'>Get Device Session Details</h2><pre class="highlight shell tab-shell"><code>URL format:
+curl -H <span class="s2">"Content-Type:application/json"</span> -d <span class="s1">'{"token":"authToken", "rid":"rid"}'</span> &lt;Cloud URL&gt;/api/get_device_sessionDetails
+Ex:
+curl -H <span class="s2">"Content-Type:application/json"</span> -d <span class="s1">'{"token":"swqkm7f55v39g9kkdggkzs", "rid":"482013"}'</span> https://device.pcloudy.com/api/get_device_sessionDetails
+</code></pre><pre class="highlight java tab-java"><code>
+</code></pre>
+<p>This api get the total session details like session start time, session end time and remaining session time.</p>
+<h3 id='url-parameters-15'>URL Parameters</h3>
+<table><thead>
 <tr>
-<td>skin</td>
-<td>true(Means take the screenshot).</td>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>token</td>
+<td>Authtoken(this will get from authenticate response)</td>
+</tr>
+<tr>
+<td>rid</td>
+<td>Reservation id(will get from book device api response)</td>
 </tr>
 </tbody></table>
 <h2 id='start-performance-data'>Start Performance Data</h2><pre class="highlight shell tab-shell"><code>URL format:
@@ -812,7 +883,7 @@ curl -H <span class="s2">"Content-Type:application/json"</span> -d <span class="
 </code></pre><pre class="highlight java tab-java"><code><span class="n">con</span><span class="o">.</span><span class="na">startPerformanceData</span><span class="o">(</span><span class="n">authToken</span><span class="o">,</span> <span class="n">bookedDevice</span><span class="o">.</span><span class="na">rid</span><span class="o">,</span> <span class="n">install</span><span class="o">.</span><span class="na">packageName</span><span class="o">);</span>
 </code></pre>
 <p>This api help to start the performance data of the app under testing. In this you will get battery, CPU, memory, internet and framerendering data on android device and for iOS will get the CPU, memory and network pockets under testing on that device. This data is stored in cloud drive.</p>
-<h3 id='url-parameters-14'>URL Parameters</h3>
+<h3 id='url-parameters-16'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -839,7 +910,7 @@ curl -H <span class="s2">"Content-Type:application/json"</span> -d <span class="
 </code></pre><pre class="highlight java tab-java"><code><span class="n">PDriveFileDTO</span><span class="o">[]</span> <span class="n">files</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">cloudDriveFileList</span><span class="o">(</span><span class="n">authToken</span><span class="o">,</span> <span class="n">bookedDevice</span><span class="o">.</span><span class="na">rid</span><span class="o">);</span>
 </code></pre>
 <p>This api help to get the performance data file names which are stored in cloud drive of a perticular device. In this you will get battery, CPU, memory, internet and framerendering data files.</p>
-<h3 id='url-parameters-15'>URL Parameters</h3>
+<h3 id='url-parameters-17'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -865,7 +936,7 @@ curl -H <span class="s2">"Content-Type:application/json"</span> -d <span class="
 <span class="o">}</span>
 </code></pre>
 <p>This helps you to download the performance data which was stored in cloud drive.</p>
-<h3 id='url-parameters-16'>URL Parameters</h3>
+<h3 id='url-parameters-18'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -893,7 +964,7 @@ curl -H <span class="s2">"Content-Type:application/json"</span> -d <span class="
 
 </code></pre>
 <p>Using this feature you can test your local site on any android and iOS devices on pCloudy platform. You can use this feature either Manual or Appium Automation. For more information gothrough the <a href="https://www.pcloudy.com/mobile-application-testing-documentation/manual-app-testing/wildnet.php" target = "_blank"> documentation</a>.</p>
-<h3 id='url-parameters-17'>URL Parameters</h3>
+<h3 id='url-parameters-19'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -917,7 +988,7 @@ Ex:
 </code></pre><pre class="highlight java tab-java"><code><span class="n">con</span><span class="o">.</span><span class="na">releaseInstantAccessBooking</span><span class="o">(</span><span class="n">authToken</span><span class="o">,</span> <span class="n">bookedDevice</span><span class="o">);</span>
 </code></pre>
 <p>This api help you to release the device.</p>
-<h3 id='url-parameters-18'>URL Parameters</h3>
+<h3 id='url-parameters-20'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -941,7 +1012,7 @@ curl -H <span class="s2">"Content-Type: application/json"</span> -d <span class=
 </code></pre><pre class="highlight java tab-java"><code><span class="n">BookingDtoDevice</span><span class="o">[]</span> <span class="n">bookedDevices</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">AppiumApi</span><span class="o">().</span><span class="na">bookDevicesForAppium</span><span class="o">(</span><span class="n">authToken</span><span class="o">,</span> <span class="n">selectedDevices</span><span class="o">,</span> <span class="n">BOOKINGDURATION</span><span class="o">,</span> <span class="n">sessionName</span><span class="o">);</span>
 </code></pre>
 <p>This api book the devices for appium execution.</p>
-<h3 id='url-parameters-19'>URL Parameters</h3>
+<h3 id='url-parameters-21'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -981,7 +1052,7 @@ curl -H <span class="s2">"Content-Type: application/json"</span> -d <span class=
 </code></pre><pre class="highlight java tab-java"><code><span class="n">con</span><span class="o">.</span><span class="na">AppiumApi</span><span class="o">().</span><span class="na">initAppiumHubForApp</span><span class="o">(</span><span class="n">authToken</span><span class="o">,</span> <span class="n">alreadyUploadedApp</span><span class="o">);</span>
 </code></pre>
 <p>This initiates the appium on devices for that app. The app you had to upload by using <b>upload api</b> which is available in Generic api.</p>
-<h3 id='url-parameters-20'>URL Parameters</h3>
+<h3 id='url-parameters-22'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1005,7 +1076,7 @@ curl -H <span class="s2">"Content-Type:application/json"</span> -d <span class="
 </code></pre><pre class="highlight java tab-java"><code><span class="n">URL</span> <span class="n">endpoint</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">AppiumApi</span><span class="o">().</span><span class="na">getAppiumEndpoint</span><span class="o">(</span><span class="n">authToken</span><span class="o">);</span>
 </code></pre>
 <p>This get the appium Endpoint url.</p>
-<h3 id='url-parameters-21'>URL Parameters</h3>
+<h3 id='url-parameters-23'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1025,70 +1096,6 @@ curl -H <span class="s2">"Content-Type:application/json"</span> -d <span class="
 </code></pre><pre class="highlight java tab-java"><code><span class="n">URL</span> <span class="n">reportFolderOnPCloudy</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">AppiumApi</span><span class="o">().</span><span class="na">getAppiumReportFolder</span><span class="o">(</span><span class="n">authToken</span><span class="o">);</span>
 </code></pre>
 <p>This gives you the report folder path. In the report you will get the total tests pass, failed and more information about test cases.</p>
-<h3 id='url-parameters-22'>URL Parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>token</td>
-<td>Authtoken(this will get from authenticate response)</td>
-</tr>
-</tbody></table>
-<h2 id='schedule-espresso'>Schedule Espresso</h2><pre class="highlight shell tab-shell"><code>URL format: 
-curl -H <span class="s2">"Content-Type: application/json"</span> -d <span class="s1">'{"token":"authToken","duration":"duration","app":"apkFile","test":"testApkFile", "cyclename":"cycleName","instrumentation_type":"instrumentationType","devices":"deviceId1,deviceId2,---"}'</span> &lt;Cloud URL&gt;/api/espresso_execution
-
-Ex: 
-curl -H <span class="s2">"Content-Type: application/json"</span> -d <span class="s1">'{"token":"swqkm7f55v39g9kkdggkzs","duration":"10","app":"apkFile","test":"testApkFile", "cyclename":"Sample","instrumentation_type":"AndroidJUnitRunner","devices":"deviceId1,deviceId2,---"}}'</span> https://device.pcloudy.com/api/espresso_execution
-</code></pre><pre class="highlight java tab-java"><code><span class="n">ScheduleAutomationResult</span> <span class="n">result</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">AutomationApi</span><span class="o">().</span><span class="na">scheduleEspressoExecution</span><span class="o">(</span><span class="n">authToken</span><span class="o">,</span> <span class="n">listOfSelectedDevices</span><span class="o">,</span> <span class="n">BOOKINGDURATION</span><span class="o">,</span> <span class="n">cloudDriveApkFile</span><span class="o">,</span> <span class="n">cloudDriveTestApkFile</span><span class="o">,</span> <span class="n">instrumentationType</span><span class="o">,</span> <span class="n">espressoCyclename</span><span class="o">);</span>
-</code></pre>
-<p>This api schedule the espresso execution and run the espresso on selected devices.</p>
-<h3 id='url-parameters-23'>URL Parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>token</td>
-<td>Authtoken(this will get from authenticate response)</td>
-</tr>
-<tr>
-<td>duration</td>
-<td>Duration in minutes you want to book the each device.</td>
-</tr>
-<tr>
-<td>app</td>
-<td>APK file name which is there in cloud drive(My App Data).</td>
-</tr>
-<tr>
-<td>test</td>
-<td>Test APK file name which is there in cloud drive(My App Data).</td>
-</tr>
-<tr>
-<td>cyclename</td>
-<td>Enter session name</td>
-</tr>
-<tr>
-<td>instrumentation_type</td>
-<td>Application instrumentation type (AndroidJUnitRunner/testInstrumentationRunner)</td>
-</tr>
-<tr>
-<td>devices</td>
-<td>Provide devices id&#39;s with comma separated for multiple device booking.</td>
-</tr>
-</tbody></table>
-<h2 id='get-espresso-report-url'>Get Espresso Report URL</h2><pre class="highlight shell tab-shell"><code>URL format:
-curl -H <span class="s2">"Content-Tyepe:application/json"</span> -d <span class="s1">'{"token":"authToken", "tid":"tid"}'</span> &lt;Cloud URL&gt;/api/espresso_report
-
-Ex: 
-curl -H <span class="s2">"Content-Tyepe:application/json"</span> -d <span class="s1">'{"token":"swqkm7f55v39g9kkdggkzs","tid":7234}'</span> &lt;Cloud URL&gt;/api/espresso_report
-</code></pre><pre class="highlight java tab-java"><code><span class="n">AutomationReportURL</span> <span class="n">url</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">AutomationApi</span><span class="o">().</span><span class="na">getEspressoReportURL</span><span class="o">(</span><span class="n">authToken</span><span class="o">,</span> <span class="n">tid</span><span class="o">);</span>
-</code></pre>
-<p>This gives you the Espresso report URL.</p>
 <h3 id='url-parameters-24'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -1100,11 +1107,80 @@ curl -H <span class="s2">"Content-Tyepe:application/json"</span> -d <span class=
 <td>token</td>
 <td>Authtoken(this will get from authenticate response)</td>
 </tr>
+</tbody></table>
+<h2 id='download-appium-performance-data'>Download Appium Performance Data</h2><pre class="highlight shell tab-shell"><code>URL format: 
+curl -H <span class="s2">"Content-Type:application/json"</span> -d <span class="s1">'{"token":"authToken","rid":"rid","filename":"fileName"}'</span> &lt;Cloud URL&gt;/api/appium/download_appium_access_data
+
+Ex: 
+curl -H <span class="s2">"Content-Type:application/json"</span> -d <span class="s1">'{"token":"swqkm7f55v39g9kkdggkzs","rid":"1234","filename":"cpu.txt"}'</span> https://device.pcloudy.com/api/appium/download_appium_access_data
+</code></pre><pre class="highlight java tab-java"><code> <span class="n">con</span><span class="o">.</span><span class="na">AppiumApi</span><span class="o">().</span><span class="na">downloadPerformanceDataByName</span><span class="o">(</span><span class="n">authToken</span><span class="o">,</span><span class="n">rid</span><span class="o">,</span><span class="n">fileName</span><span class="o">);</span>
+</code></pre>
+<p>This will download the performance data like cpu, memory,battery and video. </p>
+<h3 id='url-parameters-25'>URL Parameters</h3>
+<table><thead>
 <tr>
-<td>tid</td>
-<td>Transaction id(this will get from espresso execution api&#39;s response)</td>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>token</td>
+<td>Authtoken(this will get from authenticate response)</td>
+</tr>
+<tr>
+<td>rid</td>
+<td>Reservation id(will get from appium/init api response for each device)</td>
+</tr>
+<tr>
+<td>filename</td>
+<td>Performance list file name(cpu.txt, bat.txt, mem.txt, video.flv)</td>
 </tr>
 </tbody></table>
+
+<!-- ## Schedule Espresso
+
+```shell
+URL format: 
+curl -H "Content-Type: application/json" -d '{"token":"authToken","duration":"duration","app":"apkFile","test":"testApkFile", "cyclename":"cycleName","instrumentation_type":"instrumentationType","devices":"deviceId1,deviceId2,---"}' <Cloud URL>/api/espresso_execution
+
+Ex: 
+curl -H "Content-Type: application/json" -d '{"token":"swqkm7f55v39g9kkdggkzs","duration":"10","app":"apkFile","test":"testApkFile", "cyclename":"Sample","instrumentation_type":"AndroidJUnitRunner","devices":"deviceId1,deviceId2,---"}}' https://device.pcloudy.com/api/espresso_execution
+```
+```java
+ScheduleAutomationResult result = con.AutomationApi().scheduleEspressoExecution(authToken, listOfSelectedDevices, BOOKINGDURATION, cloudDriveApkFile, cloudDriveTestApkFile, instrumentationType, espressoCyclename);
+```
+This api schedule the espresso execution and run the espresso on selected devices.
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+token | Authtoken(this will get from authenticate response)
+duration | Duration in minutes you want to book the each device.
+app | APK file name which is there in cloud drive(My App Data).
+test | Test APK file name which is there in cloud drive(My App Data).
+cyclename | Enter session name 
+instrumentation_type | Application instrumentation type (AndroidJUnitRunner/testInstrumentationRunner)
+devices | Provide devices id's with comma separated for multiple device booking.
+
+## Get Espresso Report URL
+
+```shell
+URL format:
+curl -H "Content-Tyepe:application/json" -d '{"token":"authToken", "tid":"tid"}' <Cloud URL>/api/espresso_report
+
+Ex: 
+curl -H "Content-Tyepe:application/json" -d '{"token":"swqkm7f55v39g9kkdggkzs","tid":7234}' <Cloud URL>/api/espresso_report
+```
+```java
+AutomationReportURL url = con.AutomationApi().getEspressoReportURL(authToken, tid);
+```
+This gives you the Espresso report URL.
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+token | Authtoken(this will get from authenticate response)
+tid | Transaction id(this will get from espresso execution api's response) -->
 <h1 id='network-simulation'>Network Simulation</h1><h2 id='get-network-profiles'>Get Network Profiles</h2><pre class="highlight shell tab-shell"><code>URL format:
 curl -H <span class="s2">"Content-Tyepe:application/json"</span> -d <span class="s1">'{"token":"authToken"}'</span> &lt;Cloud URL&gt;/api/get_atcd_profiles
 
@@ -1114,7 +1190,7 @@ curl -H <span class="s2">"Content-Tyepe:application/json"</span> -d <span class=
 </code></pre>
 <p>This gives you the total network profile list with upload and download speed that are present in device under Network feture in pCloudy.
 e.g 3G,2G,4G,Broadband Low Speed.</p>
-<h3 id='url-parameters-25'>URL Parameters</h3>
+<h3 id='url-parameters-26'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1136,7 +1212,7 @@ Ex: curl -H <span class="s2">"Content-Tyep:application/json"</span> -d <span cla
 <p>This api set the network profile on booked device. </p>
 
 <p><b>Note:</b>Network profile name should be pass as one of the parameter.</p>
-<h3 id='url-parameters-26'>URL Parameters</h3>
+<h3 id='url-parameters-27'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1164,7 +1240,7 @@ Ex: curl -H <span class="s2">"Content-Tyep:application/json"</span> -d <span cla
 </code></pre><pre class="highlight java tab-java"><code>  <span class="n">con</span><span class="o">.</span><span class="na">NetworkSimulationApi</span><span class="o">().</span><span class="na">unShapeAtcd</span><span class="o">(</span><span class="n">authToken</span><span class="o">,</span> <span class="n">bookedDevice</span><span class="o">);</span>
 </code></pre>
 <p>This api unshape the network profile that was already set in the device.. </p>
-<h3 id='url-parameters-27'>URL Parameters</h3>
+<h3 id='url-parameters-28'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1180,8 +1256,6 @@ Ex: curl -H <span class="s2">"Content-Tyep:application/json"</span> -d <span cla
 <td>Reservation id(will get from book device api response)</td>
 </tr>
 </tbody></table>
-
-<p>s</p>
 <h1 id='errors'>Errors</h1>
 <p>pCloudy uses conventional HTTP response codes to indicate the success or failure of an API request. In general, codes in the 2xx range indicate success, codes in the 4xx range indicate an error that failed given the information provided(e.g., a required parameter was omitted, etc.), and codes in the 5xx range indicate an error with pCloudy’s servers(these are rare).</p>
 
