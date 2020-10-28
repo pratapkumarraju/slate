@@ -535,6 +535,28 @@ Parameter | Description
 token | Authtoken(this will get from authenticate response)
 rid | Reservation id(will get from book device api response)
 
+## Start Device Services
+```shell
+URL format:
+curl -H "Content-Tyepe:application/json" -d '{"token":"swqkm7f55v39g9kkdggkzs","rid": "rid","startDeviceLogs": "true","startPerformanceData": "true","startSessionRecording": "true"}' <Cloud URL>/api/startdeviceservices
+
+Ex: 
+curl -H "Content-Type: application/json" -d '{"token":"swqkm7f55v39g9kkdggkzs","rid": "164","startDeviceLogs": "true","startPerformanceData": "true","startSessionRecording": "true"}' https://device.pcloudy.com/api/startdeviceservices
+```
+```java
+
+```
+This API helps to initialize device services on the device like device log, performance log, and session video recording.
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+token | Authtoken(this will get from authenticate api response)
+rid | rid(this will get from book device api response).
+startDeviceLogs | Start device logs(true/false).
+startPerformanceData | true/false.
+startSessionRecording | true/false.
+
 
 ## Release Device
 ```shell
@@ -555,7 +577,7 @@ Parameter | Description
 token | Authtoken(this will get from authenticate response)
 rid | Reservation id(will get from book device api response)
 
-# Automation 
+# Appium Automation 
 
 ## Book Devices For Appium
 
@@ -704,6 +726,93 @@ Parameter | Description
 token | Authtoken(this will get from authenticate response)
 tid | Transaction id(this will get from espresso execution api's response) -->
 
+# XCTest Automation
+
+## Book Devices
+```shell
+URL format:
+curl -H "Content-Tyepe:application/json" -d '{"token":"authToken","devices":[deviceId1,deviceId2,---],"booking_duration":"duration","automation_type": "XCUITest"}' <Cloud URL>/api/automationbooking
+
+Ex: 
+curl -H "Content-Tyepe:application/json" -d '{"token":"swqkm7f55v39g9kkdggkzs","devices":[107],"booking_duration": "30","automation_type": "XCUITest"}' https://device.pcloudy.com/api/automationbooking
+```
+```java
+
+```
+This api book the devices for XCTest automation execution.
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+token | Authtoken(this will get from authenticate api response)
+devices | Provide array of devices id's for multiple device booking(devices ids will get from Get devices list api response)
+booking_duration | Duration in minutes you want to book the each device.
+automation_type | Provide automation type(XCUITest).
+
+## Initialize Automation
+
+```shell
+URL format: 
+curl -H "Content-Type: application/json" -d '{"token":"authToken","automationId": "automationId","test_suite": "testSuite.zip"}' <Cloud URL>/api/initautomation
+
+Ex: 
+curl -H "Content-Type: application/json" -d '{"token":"swqkm7f55v39g9kkdggkzs","automationId": "176","test_suite": "Archive_2.zip"}' https://device.pcloudy.com/api/initautomation
+```
+```java
+
+```
+This API initiates the XCTest on devices for that test suite. The test suite you had to upload by using <b>upload API</b> which is available in Generic API.
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+token | Authtoken(this will get from authenticate api response)
+automationId | automationId(this will get from XCTest book devices api response).
+test_suite | Test suite zip file name which is there in cloud drive(My App Data).
+
+## Start Device Services
+```shell
+URL format:
+curl -H "Content-Tyepe:application/json" -d '{"token":"swqkm7f55v39g9kkdggkzs","automationId": "automationId","startDeviceLogs": "true","startPerformanceData": "true","startSessionRecording": "true"}' <Cloud URL>/api/startdeviceservices
+
+Ex: 
+curl -H "Content-Type: application/json" -d '{"token":"swqkm7f55v39g9kkdggkzs","automationId": "164","startDeviceLogs": "true","startPerformanceData": "true","startSessionRecording": "true"}' https://device.pcloudy.com/api/startdeviceservices
+```
+```java
+
+```
+This API helps to initialize device services on the device like device log, performance log, and session video recording.
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+token | Authtoken(this will get from authenticate api response)
+automationId | automationId(this will get from XCTest book devices api response).
+startDeviceLogs | Start device logs(true/false).
+startPerformanceData | true/false.
+startSessionRecording | true/false.
+
+
+## Release Devices
+
+```shell
+URL format: 
+curl -H "Content-Type: application/json" -d '{"token":"authToken","automationId": "automationId"}' <Cloud URL>/api/initautomation
+
+Ex: 
+curl -H "Content-Type: application/json" -d '{"token":"swqkm7f55v39g9kkdggkzs","automationId": "155"}' https://device.pcloudy.com/api/automationrelease
+```
+```java
+
+```
+This API helps you to release the XCTest automation devices.
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+token | Authtoken(this will get from authenticate api response)
+automationId | automationId(this will get from XCTest book devices api response).
 
 # Network Simulation
 
